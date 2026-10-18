@@ -17,6 +17,13 @@ most 64 sequences and 32,768 padded tokens (so a batch of long states uses sever
 short ones a single wide pass) with gradient checkpointing, sequences up to 4,096 tokens. A 5% validation split picks the checkpoint; if no
 checkpoint beats the base model on it, the release keeps the base model.
 
+Recipe options added after the mix-v2 round (Gemma lost 2.4 Tier 1 points to a full-epoch LoRA at 2e-4 chosen on in-mix
+validation): ``--steps`` caps the run (the cosine schedule then spans the cap), ``--snapshot-every`` saves the adapter
+to <out>/snapshots/step-N for evaluation on Tier 1 samples (the engine loads an adapter directory directly), and
+``--base-kl-weight`` adds that weight times KL(base || student) over the label distribution, where the base answer is
+read from the same model with its LoRA layers disabled; it anchors the update to the base model's behaviour instead of
+hard gold labels alone. LoRA recipes only.
+
 A release run writes its training state (trainable weights, optimizer, step, best-so-far) to <out>/state.pt every
 --state-every steps and resumes from it when restarted with the same data, seed and rate, so a power-off costs at most
 that many steps. The file is removed when the run completes.
@@ -115,7 +122,8 @@ def label_logits(backend: TorchBackend, hidden: torch.Tensor, items: list[Item])
     return out
 
 
-def batch_loss(backend: TorchBackend, model, items: list[Item], kl_weight: float) -> tuple[torch.Tensor, float, int]:
+def batch_loss(backend: TorchBackend, model, items: list[Item], kl_weight: float,
+               base_kl_weight: float = 0.0) -> tuple[torch.Tensor, float, int]:
     L = max(len(it.ids) for it in items)
     pad = backend.pad_id
     input_ids = torch.full((len(items), L), pad, dtype=torch.long)
@@ -125,16 +133,26 @@ def batch_loss(backend: TorchBackend, model, items: list[Item], kl_weight: float
         mask[b, L - len(it.ids):] = 1
     # backend.inner is the decoder; peft injects LoRA layers into the same module tree, so it serves both recipes.
     # Weights stay in fp32 (full fine-tune) and compute runs under bf16 autocast, so 2e-5 updates are not rounded away.
-    with torch.autocast("cuda", dtype=torch.bfloat16, enabled=backend.device.startswith("cuda")):
+    autocast = torch.autocast("cuda", dtype=torch.bfloat16, enabled=backend.device.startswith("cuda"))
+    with autocast:
         out = backend.inner(input_ids=input_ids.to(backend.device), attention_mask=mask.to(backend.device), use_cache=False)
         hidden = out.last_hidden_state[:, -1, :]
+    base_logits = None
+    if base_kl_weight > 0:
+        # the base model's answer distribution, from the same weights with the LoRA layers switched off
+        with torch.no_grad(), model.disable_adapter(), autocast:
+            base_out = backend.inner(input_ids=input_ids.to(backend.device), attention_mask=mask.to(backend.device), use_cache=False)
+            base_logits = label_logits(backend, base_out.last_hidden_state[:, -1, :].float(), items)
     losses, correct = [], 0
-    for it, z in zip(items, label_logits(backend, hidden.float(), items)):
+    for b, (it, z) in enumerate(zip(items, label_logits(backend, hidden.float(), items))):
         logp = F.log_softmax(z, dim=0)
         loss = -logp[it.gold]
         if it.teacher is not None and kl_weight > 0:
             t = torch.tensor(it.teacher, dtype=torch.float32, device=logp.device)
             loss = loss + kl_weight * (t * (torch.log(t.clamp_min(1e-9)) - logp)).sum()
+        if base_logits is not None:
+            pb = F.softmax(base_logits[b], dim=0)
+            loss = loss + base_kl_weight * (pb * (torch.log(pb.clamp_min(1e-9)) - logp)).sum()
         losses.append(loss)
         correct += int(z.argmax().item() == it.gold)
     return torch.stack(losses).mean(), correct, len(items)
@@ -214,7 +232,13 @@ def train_run(backend, recipe, train_items, val_items, args, lr: float, out: Pat
         model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
     opt = torch.optim.AdamW(params, lr=lr, weight_decay=0.0, betas=(0.9, 0.95))
     steps = max(1, len(train_items) // args.batch)
+    if getattr(args, "steps", None):
+        steps = min(steps, args.steps)  # a capped run: the schedule spans the cap, the data order is unchanged
     warm = max(1, int(0.03 * steps))
+    base_kl = float(getattr(args, "base_kl_weight", 0.0) or 0.0)
+    snapshot_every = int(getattr(args, "snapshot_every", 0) or 0)
+    if base_kl > 0 and not hasattr(model, "disable_adapter"):
+        raise SystemExit("--base-kl-weight needs a LoRA recipe: the base answer is read with the adapter disabled")
 
     def lr_at(step):
         if step < warm:
@@ -243,7 +267,7 @@ def train_run(backend, recipe, train_items, val_items, args, lr: float, out: Pat
         batch = sorted((train_items[i] for i in order[step * args.batch:(step + 1) * args.batch]), key=lambda it: len(it.ids))
         running = 0.0
         for chunk in micro_batches(batch, args.micro, args.micro_tokens):
-            loss, _, _ = batch_loss(backend, model, chunk, args.kl_weight)
+            loss, _, _ = batch_loss(backend, model, chunk, args.kl_weight, base_kl)
             share = len(chunk) / len(batch)  # the step's loss is the mean over its sequences, whatever the chunking
             (loss * share).backward()
             running += float(loss.detach()) * share
@@ -260,6 +284,10 @@ def train_run(backend, recipe, train_items, val_items, args, lr: float, out: Pat
                 best = {"step": step + 1, "val": val, "is_base": False}
                 if out is not None:
                     save(model, backend, recipe, out, extra={"step": step + 1, "val": val, "lr": lr})
+        if out is not None and snapshot_every and (step + 1) % snapshot_every == 0:
+            snap = out / "snapshots" / f"step-{step + 1}"
+            save(model, backend, recipe, snap, extra={"step": step + 1, "lr": lr, "snapshot": True})
+            log.info("  snapshot saved to %s", snap)
         if state_path is not None and args.state_every and (step + 1) % args.state_every == 0 and step < steps - 1:
             save_state(model, opt, state_path, {"step": step + 1, "best": best, "history": history, "base_val": base_val, "config": config})
             log.info("  training state saved at step %d", step + 1)
@@ -325,7 +353,11 @@ def main() -> None:
     ap.add_argument("--micro", type=int, default=64, help="sequences per forward pass, at most")
     ap.add_argument("--micro-tokens", type=int, default=32768, help="padded tokens per forward pass, at most")
     ap.add_argument("--max-tokens", type=int, default=4096)
-    ap.add_argument("--kl-weight", type=float, default=0.5)
+    ap.add_argument("--kl-weight", type=float, default=0.5, help="weight of KL(teacher || student) when examples carry teacher labels")
+    ap.add_argument("--base-kl-weight", type=float, default=0.0,
+                    help="weight of KL(base || student) read from the same model with its LoRA disabled (LoRA recipes only)")
+    ap.add_argument("--steps", type=int, help="cap the number of optimizer steps (default: one epoch)")
+    ap.add_argument("--snapshot-every", type=int, default=0, help="save the adapter to <out>/snapshots/step-N every N steps")
     ap.add_argument("--limit", type=int, help="use only the first N training examples (smoke tests)")
     ap.add_argument("--val-limit", type=int, default=2000)
     ap.add_argument("--eval-every", type=int, default=100)
@@ -345,6 +377,8 @@ def main() -> None:
     model_id = registry.resolve(args.model) or args.model
     spec = registry.MODELS[model_id]
     recipe = dict(RECIPES[spec.family])
+    if args.base_kl_weight and recipe["method"] != "lora":
+        raise SystemExit("--base-kl-weight needs a LoRA recipe: the base answer is read with the adapter disabled")
     checkpoint = args.checkpoint or spec.base
     backend = TorchBackend(checkpoint, dtype=torch.float32 if recipe["method"] == "full" else torch.bfloat16)
     data = Path(args.data)

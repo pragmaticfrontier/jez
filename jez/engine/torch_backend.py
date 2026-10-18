@@ -55,9 +55,21 @@ def apply_memory_cap(fraction: float | None = None) -> float | None:
     return None
 
 
+def adapter_base(checkpoint: str) -> str | None:
+    """The base checkpoint a LoRA adapter directory was trained on (peft's adapter_config.json), else None.
+
+    An adapter directory is accepted wherever a checkpoint is: the base is loaded and the adapter merged in memory,
+    so a training snapshot can be evaluated without writing merged weights to disk."""
+    cfg = Path(checkpoint) / "adapter_config.json"
+    if cfg.is_file():
+        return json.loads(cfg.read_text())["base_model_name_or_path"]
+    return None
+
+
 def _safetensors_files(checkpoint: str) -> list[Path]:
     from transformers.utils.hub import cached_file
 
+    checkpoint = adapter_base(checkpoint) or checkpoint
     path = Path(checkpoint)
     if path.is_dir():
         return sorted(path.glob("*.safetensors"))
@@ -111,6 +123,7 @@ def check_fits(checkpoint: str, dtype: torch.dtype, headroom: float = 1.3) -> No
 def _resolve_config(checkpoint: str) -> dict:
     from transformers.utils.hub import cached_file
 
+    checkpoint = adapter_base(checkpoint) or checkpoint
     path = Path(checkpoint)
     if path.is_dir():
         return json.loads((path / "config.json").read_text())
@@ -118,9 +131,13 @@ def _resolve_config(checkpoint: str) -> dict:
 
 
 def load_text_model(checkpoint: str, dtype: torch.dtype, device: str, attn_implementation: str | None = None):
-    """Load only the text decoder of a checkpoint. Returns (model, architecture, softcap)."""
+    """Load only the text decoder of a checkpoint (or of a LoRA adapter directory, merged into its base in memory).
+
+    Returns (model, architecture, softcap)."""
     from transformers import AutoModelForCausalLM
 
+    adapter = checkpoint if adapter_base(checkpoint) else None
+    checkpoint = adapter_base(checkpoint) or checkpoint
     cfg = _resolve_config(checkpoint)
     arch = (cfg.get("architectures") or ["?"])[0]
     if device.startswith("cuda"):
@@ -144,6 +161,11 @@ def load_text_model(checkpoint: str, dtype: torch.dtype, device: str, attn_imple
     else:
         model = AutoModelForCausalLM.from_pretrained(checkpoint, **kwargs)
         family = "auto"
+    if adapter:
+        from peft import PeftModel
+
+        model = PeftModel.from_pretrained(model, adapter).merge_and_unload()
+        log.info("merged adapter %s into %s in memory", adapter, checkpoint)
     return model.eval(), family, softcap
 
 
@@ -210,7 +232,7 @@ class TorchBackend:
         self.min_shared_prefix = min_shared_prefix
 
         t0 = time.perf_counter()
-        self.tok = AutoTokenizer.from_pretrained(checkpoint)
+        self.tok = AutoTokenizer.from_pretrained(adapter_base(checkpoint) or checkpoint)  # an adapter directory has no tokenizer
         self.model, self.family, self.softcap = load_text_model(checkpoint, dtype, self.device, attn_implementation)
         self.inner = self.model.model  # the decoder without the output head
         self.head_weight = self.model.lm_head.weight  # tied to the embedding for both bases
