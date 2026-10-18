@@ -11,8 +11,16 @@ echo "$(date '+%F %T') guard started; deadline $(date -d @"$DEADLINE" '+%F %T');
 while true; do
   running=0
   for id in "$@"; do
-    state=$($MODAL app list 2>/dev/null | awk -v id="$id" '$0 ~ id {print $0}' | grep -c -E "running|ephemeral|deployed")
-    [ "$state" -gt 0 ] && running=$((running + 1))
+    # the table view truncates columns ("ephemera"), so read the JSON: an app is finished once its row says stopped
+    alive=$($MODAL app list --json 2>/dev/null | python3 -c '
+import json, sys
+rows = json.load(sys.stdin); app = sys.argv[1]
+for r in rows:
+    if app in json.dumps(r):
+        print(0 if any(str(v).lower() == "stopped" for v in r.values()) else 1); break
+else:
+    print(0)' "$id" 2>/dev/null || echo 1)
+    [ "$alive" = "1" ] && running=$((running + 1))
   done
   if [ "$running" -eq 0 ]; then echo "$(date '+%F %T') all apps finished; guard exits" >> "$LOG"; exit 0; fi
   if [ "$(date +%s)" -ge "$DEADLINE" ]; then
