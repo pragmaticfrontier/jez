@@ -15,6 +15,24 @@ from pathlib import Path
 
 LANGUAGES = ["en", "de", "fr", "es", "it", "pt", "ru", "uk", "ar", "hi", "zh", "ja"]
 
+USAGE = """
+## Serving
+
+The weights at the root of this repository are plain `{arch}` weights: the fine-tune is merged, nothing custom is
+needed to load them. The decision is read from the next-token logits over the declared answer labels at the answer
+position; the model never generates text. The Jez server implements TypeSafe's Jev `/v1/systemone` contract on top of
+that head and ships the calibration temperatures in `calibration.json`:
+
+```bash
+JEZ_API_KEYS=my-token JEZ_MODELS={model_id}={repo} JEZ_CALIBRATION=calibration.json jez-serve
+curl -s localhost:8009/v1/systemone -H "authorization: Bearer my-token" -H "content-type: application/json" \\
+     -d '{{"model": "{model_id}", "state": {{"message": "I was charged twice."}}, "questions": {{"billing": {{"type": "noul", "instructions": "Is this about billing?"}}}}}}'
+```
+
+`adapter/` holds the LoRA adapter the weights were merged from (PEFT format, base `{base}`), for anyone who prefers
+to apply it to the base checkpoint themselves.
+"""
+
 
 def front_matter(base: str, licence: str, licence_link: str | None, tags: list[str]) -> str:
     lines = ["---", f"license: {licence}"]
@@ -64,7 +82,10 @@ def main() -> None:
     if not base:
         training = json.loads((release / "training.json").read_text()) if (release / "training.json").is_file() else {}
         base = training.get("base") or json.loads((release / "weights" / "config.json").read_text()).get("_name_or_path", "unknown")
-    readme = front_matter(base, args.licence, args.licence_link, args.tags.split(",")) + (release / "MODEL_CARD.md").read_text()
+    arch = json.loads((release / "weights" / "config.json").read_text()).get("architectures", ["transformers"])[0]
+    usage = USAGE.format(arch=arch, model_id=release.name.split("-anchored")[0] if "jez-" in release.name else "jez-large-1.0.0",
+                         repo=args.repo, base=base)
+    readme = front_matter(base, args.licence, args.licence_link, args.tags.split(",")) + (release / "MODEL_CARD.md").read_text() + usage
     total = sum(f.stat().st_size for f, _ in files)
     print(f"{len(files)} files, {total / 1e9:.2f} GB -> {args.repo} ({'private' if args.private else 'public'})")
     for f, dest in files:
@@ -72,6 +93,7 @@ def main() -> None:
     print("  README.md (card + metadata header)")
     if args.dry_run:
         print(readme.split("---")[1])
+        print(usage)
         return
     token = os.environ.get("HF_TOKEN")
     if not token:

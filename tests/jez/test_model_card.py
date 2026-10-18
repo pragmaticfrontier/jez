@@ -50,3 +50,18 @@ def test_front_matter_is_a_yaml_header_with_the_base_and_licence():
     fm = front_matter("google/gemma-4-E4B-it", "apache-2.0", "https://example/licence", ["jez", "jev"])
     assert fm.startswith("---\nlicense: apache-2.0\nlicense_link: https://example/licence\nbase_model: google/gemma-4-E4B-it\n")
     assert fm.rstrip().endswith("---") and "  - jez\n  - jev" in fm and "  - uk" in fm
+
+
+def test_notes_become_known_limit_bullets(tmp_path: Path, monkeypatch):
+    import json, subprocess, sys
+    rel = tmp_path / "rel"
+    rel.mkdir()
+    (rel / "calibration.json").write_text(json.dumps({"model": "jez-large-1.0.0", "temperature": {"noul": 1.0}}))
+    (rel / "training.json").write_text(json.dumps({"recipe": {"method": "lora", "rank": 64, "alpha": 128}, "step": 1000, "lr": 5e-5,
+                                                   "val": {"loss": 0.4, "accuracy": 0.83}, "base_kl_weight": 0.5}))
+    cmd = [sys.executable, "-m", "train.model_card", "--release", str(rel), "--model-id", "jez-large-1.0.0",
+           "--note", "Prompt-injection detection sits below the base.", "--note", "Second note."]
+    subprocess.run(cmd, check=True, cwd=Path(__file__).resolve().parents[2], capture_output=True)
+    card = (rel / "MODEL_CARD.md").read_text()
+    assert "- Prompt-injection detection sits below the base.\n- Second note." in card
+    assert "0.5 × KL(base ‖ student)" in card and "{" not in card.split("## Known limits")[0].split("| Method |")[0]

@@ -84,6 +84,7 @@ def main() -> None:
     ap.add_argument("--teacher-licence-checked", default="n/a")
     ap.add_argument("--lr-note", default="chosen by a 3-rate sweep on 5% of the data", help="how the learning rate was chosen")
     ap.add_argument("--selection-note", default="", help="how the checkpoint was chosen beyond validation loss")
+    ap.add_argument("--note", action="append", default=[], help="an extra Known-limits bullet (repeatable)")
     args = ap.parse_args()
     rel = Path(args.release)
     spec = registry.MODELS[registry.resolve(args.model_id) or args.model_id]
@@ -140,7 +141,7 @@ def main() -> None:
         "gate2": gate2, "gate3": gate3, "gate4": gate4, "gate5": gate5,
         "tier1_table": tier1_table, "tier2_tier3": "Tier 2 sets are not in the repository; see eval/data/tier2/README.md.",
         "latency_rows": latency_rows,
-        "known_limits": "Calibration temperatures: " + ", ".join(f"{b} {T:.2f}" for b, T in calib.temperature.items()),
+        "known_limits": "\n- ".join(["Calibration temperatures: " + ", ".join(f"{b} {T:.2f}" for b, T in calib.temperature.items())] + list(args.note)),
     }
     text = TEMPLATE.read_text()
     for k, v in values.items():
