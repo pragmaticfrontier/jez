@@ -70,6 +70,7 @@ def main() -> None:
     ap.add_argument("--release", required=True)
     ap.add_argument("--repo", required=True, help="<user-or-org>/<name>")
     ap.add_argument("--base", help="base model id for the card header (default: read from training/model registry)")
+    ap.add_argument("--model-id", help="Jez model id served under this checkpoint (default: calibration.json's model, else the folder name)")
     ap.add_argument("--licence", default="apache-2.0", help="Hub licence identifier")
     ap.add_argument("--licence-link", default=None)
     ap.add_argument("--tags", default="jez,jev,decision-model,label-logits,classification")
@@ -83,8 +84,10 @@ def main() -> None:
         training = json.loads((release / "training.json").read_text()) if (release / "training.json").is_file() else {}
         base = training.get("base") or json.loads((release / "weights" / "config.json").read_text()).get("_name_or_path", "unknown")
     arch = json.loads((release / "weights" / "config.json").read_text()).get("architectures", ["transformers"])[0]
-    usage = USAGE.format(arch=arch, model_id=release.name.split("-anchored")[0] if "jez-" in release.name else "jez-large-1.0.0",
-                         repo=args.repo, base=base)
+    model_id = args.model_id
+    if not model_id and (release / "calibration.json").is_file():
+        model_id = json.loads((release / "calibration.json").read_text()).get("model")
+    usage = USAGE.format(arch=arch, model_id=model_id or release.name, repo=args.repo, base=base)
     readme = front_matter(base, args.licence, args.licence_link, args.tags.split(",")) + (release / "MODEL_CARD.md").read_text() + usage
     total = sum(f.stat().st_size for f, _ in files)
     print(f"{len(files)} files, {total / 1e9:.2f} GB -> {args.repo} ({'private' if args.private else 'public'})")
