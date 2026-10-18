@@ -1,0 +1,335 @@
+no_guard: running python3 -m train.finetune --model jez-small-1.0.0 --data /data/mix-v2 --lr 1e-05 --out /releases/mixv2/jez-small-1.0.0 --eval-every 200 --log-every 20
+2026-10-17 23:34:15,854 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B "HTTP/1.1 200 OK"
+2026-10-17 23:34:15,974 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-17 23:34:16,053 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-17 23:34:16,724 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B "HTTP/1.1 200 OK"
+2026-10-17 23:34:16,801 INFO httpx2: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen3.5-0.8B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-17 23:34:16,870 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen3.5-0.8B/2fc06364715b967f1860aea9cf38778875588b17/config.json?%2FQwen%2FQwen3.5-0.8B%2Fresolve%2Fmain%2Fconfig.json=&etag=%22715f0448b9d38103211f0ad88bbb4d6e4f4be8c9%22 "HTTP/1.1 200 OK"
+2026-10-17 23:34:16,949 INFO httpx2: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen3.5-0.8B/resolve/main/model.safetensors.index.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-17 23:34:17,058 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen3.5-0.8B/2fc06364715b967f1860aea9cf38778875588b17/model.safetensors.index.json?%2FQwen%2FQwen3.5-0.8B%2Fresolve%2Fmain%2Fmodel.safetensors.index.json=&etag=%22f691cefdb79d73270895ebd6d9594ddcecfc1838%22 "HTTP/1.1 200 OK"
+2026-10-17 23:34:17,141 INFO httpx2: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen3.5-0.8B/resolve/main/model.safetensors-00001-of-00001.safetensors "HTTP/1.1 302 Found"
+2026-10-17 23:34:17,422 INFO jez.engine: memory preflight: Qwen/Qwen3.5-0.8B needs ~4.0 GB, budget 76.5 GB
+2026-10-17 23:34:20,700 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B/revision/main "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<03:04,  1.72it/s]Loading weights: 100%|██████████| 320/320 [00:00<00:00, 525.59it/s]
+2026-10-17 23:34:21,847 INFO jez.engine: loaded Qwen/Qwen3.5-0.8B (qwen3_5) on cuda torch.float32 in 6.2s; 255 single-token choice labels
+2026-10-17 23:39:17,975 INFO train: train: 278997 of 278999 examples usable
+2026-10-17 23:39:20,261 INFO train: val: 2000 of 2000 examples usable
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+2026-10-17 23:41:03,612 INFO train: base model on validation: loss 2.0506 acc 0.4070
+2026-10-17 23:45:04,595 INFO train: step 20/4359 loss 1.3504 lr 1.54e-06 241s
+2026-10-17 23:45:49,781 INFO train: step 40/4359 loss 0.9124 lr 3.08e-06 286s
+2026-10-17 23:46:28,939 INFO train: step 60/4359 loss 0.8463 lr 4.62e-06 325s
+2026-10-17 23:47:07,650 INFO train: step 80/4359 loss 0.7812 lr 6.15e-06 364s
+2026-10-17 23:47:48,027 INFO train: step 100/4359 loss 1.0292 lr 7.69e-06 404s
+2026-10-17 23:48:29,656 INFO train: step 120/4359 loss 0.7442 lr 9.23e-06 446s
+2026-10-17 23:49:13,422 INFO train: step 140/4359 loss 0.4173 lr 1.00e-05 490s
+2026-10-17 23:49:52,506 INFO train: step 160/4359 loss 0.9226 lr 1.00e-05 529s
+2026-10-17 23:50:30,531 INFO train: step 180/4359 loss 0.7016 lr 1.00e-05 567s
+2026-10-17 23:51:17,893 INFO train: step 200/4359 loss 0.6061 lr 9.99e-06 614s
+2026-10-17 23:51:26,335 INFO train:   validation: loss 0.6606 acc 0.7645 (best 2.0506 at step 0)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.99s/it]
+2026-10-17 23:51:44,316 INFO train:   training state saved at step 200
+2026-10-17 23:52:23,539 INFO train: step 220/4359 loss 0.6856 lr 9.99e-06 680s
+2026-10-17 23:53:04,117 INFO train: step 240/4359 loss 0.7925 lr 9.98e-06 720s
+2026-10-17 23:53:43,023 INFO train: step 260/4359 loss 0.7457 lr 9.98e-06 759s
+2026-10-17 23:54:24,891 INFO train: step 280/4359 loss 0.6732 lr 9.97e-06 801s
+2026-10-17 23:55:03,511 INFO train: step 300/4359 loss 0.7403 lr 9.96e-06 840s
+2026-10-17 23:55:48,380 INFO train: step 320/4359 loss 0.7276 lr 9.95e-06 885s
+2026-10-17 23:56:28,630 INFO train: step 340/4359 loss 0.7184 lr 9.94e-06 925s
+2026-10-17 23:57:08,332 INFO train: step 360/4359 loss 0.2827 lr 9.93e-06 965s
+2026-10-17 23:57:47,548 INFO train: step 380/4359 loss 0.5588 lr 9.91e-06 1004s
+2026-10-17 23:58:32,666 INFO train: step 400/4359 loss 0.4089 lr 9.90e-06 1049s
+2026-10-17 23:58:41,142 INFO train:   validation: loss 0.5798 acc 0.7730 (best 0.6606 at step 200)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.02s/it]
+2026-10-17 23:59:01,904 INFO train:   training state saved at step 400
+2026-10-17 23:59:42,796 INFO train: step 420/4359 loss 0.6597 lr 9.89e-06 1119s
+2026-10-18 00:00:22,550 INFO train: step 440/4359 loss 0.6632 lr 9.87e-06 1159s
+2026-10-18 00:01:03,009 INFO train: step 460/4359 loss 0.6478 lr 9.85e-06 1199s
+2026-10-18 00:01:40,071 INFO train: step 480/4359 loss 0.4432 lr 9.83e-06 1236s
+2026-10-18 00:02:19,551 INFO train: step 500/4359 loss 0.5534 lr 9.81e-06 1276s
+2026-10-18 00:02:57,908 INFO train: step 520/4359 loss 0.6788 lr 9.79e-06 1314s
+2026-10-18 00:03:35,421 INFO train: step 540/4359 loss 0.6088 lr 9.77e-06 1352s
+2026-10-18 00:04:12,143 INFO train: step 560/4359 loss 0.6584 lr 9.75e-06 1388s
+2026-10-18 00:04:57,613 INFO train: step 580/4359 loss 0.5022 lr 9.72e-06 1434s
+2026-10-18 00:05:35,892 INFO train: step 600/4359 loss 0.4274 lr 9.70e-06 1472s
+2026-10-18 00:05:44,359 INFO train:   validation: loss 0.5780 acc 0.7945 (best 0.5798 at step 400)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.00s/it]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.00s/it]
+2026-10-18 00:06:02,907 INFO train:   training state saved at step 600
+2026-10-18 00:06:49,337 INFO train: step 620/4359 loss 0.5842 lr 9.67e-06 1546s
+2026-10-18 00:07:28,841 INFO train: step 640/4359 loss 0.7231 lr 9.65e-06 1585s
+2026-10-18 00:08:10,041 INFO train: step 660/4359 loss 0.4918 lr 9.62e-06 1626s
+2026-10-18 00:08:47,530 INFO train: step 680/4359 loss 0.4643 lr 9.59e-06 1664s
+2026-10-18 00:09:26,388 INFO train: step 700/4359 loss 0.3808 lr 9.56e-06 1703s
+2026-10-18 00:10:05,214 INFO train: step 720/4359 loss 0.6502 lr 9.53e-06 1742s
+2026-10-18 00:10:45,628 INFO train: step 740/4359 loss 0.4767 lr 9.50e-06 1782s
+2026-10-18 00:11:22,459 INFO train: step 760/4359 loss 0.3940 lr 9.46e-06 1819s
+2026-10-18 00:12:02,117 INFO train: step 780/4359 loss 0.5823 lr 9.43e-06 1858s
+2026-10-18 00:12:43,174 INFO train: step 800/4359 loss 0.4286 lr 9.40e-06 1899s
+2026-10-18 00:12:51,647 INFO train:   validation: loss 0.5176 acc 0.8100 (best 0.5780 at step 600)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.94s/it]
+2026-10-18 00:13:11,078 INFO train:   training state saved at step 800
+2026-10-18 00:13:50,011 INFO train: step 820/4359 loss 0.3610 lr 9.36e-06 1966s
+2026-10-18 00:14:29,006 INFO train: step 840/4359 loss 0.6914 lr 9.32e-06 2005s
+2026-10-18 00:15:07,515 INFO train: step 860/4359 loss 0.7773 lr 9.28e-06 2044s
+2026-10-18 00:15:47,409 INFO train: step 880/4359 loss 0.4073 lr 9.25e-06 2084s
+2026-10-18 00:16:25,259 INFO train: step 900/4359 loss 0.5901 lr 9.21e-06 2122s
+no_guard: running python3 -m train.finetune --model jez-small-1.0.0 --data /data/mix-v2 --lr 1e-05 --out /releases/mixv2/jez-small-1.0.0 --eval-every 200 --log-every 20
+2026-10-18 00:17:06,145 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B "HTTP/1.1 200 OK"
+2026-10-18 00:17:06,212 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-18 00:17:06,246 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-18 00:17:06,866 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B "HTTP/1.1 200 OK"
+2026-10-18 00:17:06,899 INFO httpx2: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen3.5-0.8B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 00:17:06,906 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen3.5-0.8B/2fc06364715b967f1860aea9cf38778875588b17/config.json?%2FQwen%2FQwen3.5-0.8B%2Fresolve%2Fmain%2Fconfig.json=&etag=%22715f0448b9d38103211f0ad88bbb4d6e4f4be8c9%22 "HTTP/1.1 200 OK"
+2026-10-18 00:17:06,947 INFO httpx2: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen3.5-0.8B/resolve/main/model.safetensors.index.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 00:17:06,955 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/Qwen/Qwen3.5-0.8B/2fc06364715b967f1860aea9cf38778875588b17/model.safetensors.index.json?%2FQwen%2FQwen3.5-0.8B%2Fresolve%2Fmain%2Fmodel.safetensors.index.json=&etag=%22f691cefdb79d73270895ebd6d9594ddcecfc1838%22 "HTTP/1.1 200 OK"
+2026-10-18 00:17:06,990 INFO httpx2: HTTP Request: HEAD https://huggingface.co/Qwen/Qwen3.5-0.8B/resolve/main/model.safetensors-00001-of-00001.safetensors "HTTP/1.1 302 Found"
+2026-10-18 00:17:07,138 INFO jez.engine: memory preflight: Qwen/Qwen3.5-0.8B needs ~4.0 GB, budget 76.5 GB
+2026-10-18 00:17:10,599 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B/revision/main "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:00<02:28,  2.15it/s]Loading weights:  85%|████████▌ | 273/320 [00:00<00:00, 627.58it/s]Loading weights: 100%|██████████| 320/320 [00:00<00:00, 512.00it/s]
+2026-10-18 00:17:11,548 INFO jez.engine: loaded Qwen/Qwen3.5-0.8B (qwen3_5) on cuda torch.float32 in 5.5s; 255 single-token choice labels
+2026-10-18 00:21:31,735 INFO train: train: 278997 of 278999 examples usable
+2026-10-18 00:21:33,655 INFO train: val: 2000 of 2000 examples usable
+2026-10-18 00:21:44,601 INFO train: resumed /releases/mixv2/jez-small-1.0.0/state.pt at step 800/4359 (best validation 0.5176 at step 800)
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+2026-10-18 00:26:38,162 INFO train: step 820/4359 loss 0.3612 lr 9.36e-06 293s
+2026-10-18 00:28:00,799 INFO train: step 840/4359 loss 0.6949 lr 9.32e-06 376s
+2026-10-18 00:28:53,954 INFO train: step 860/4359 loss 0.7848 lr 9.28e-06 429s
+2026-10-18 00:29:35,942 INFO train: step 880/4359 loss 0.4089 lr 9.25e-06 471s
+2026-10-18 00:30:22,500 INFO train: step 900/4359 loss 0.5843 lr 9.21e-06 518s
+2026-10-18 00:31:03,004 INFO train: step 920/4359 loss 0.7529 lr 9.17e-06 558s
+2026-10-18 00:31:44,829 INFO train: step 940/4359 loss 0.5720 lr 9.12e-06 600s
+2026-10-18 00:32:29,096 INFO train: step 960/4359 loss 0.4451 lr 9.08e-06 644s
+2026-10-18 00:33:14,991 INFO train: step 980/4359 loss 0.4040 lr 9.04e-06 690s
+2026-10-18 00:34:03,848 INFO train: step 1000/4359 loss 0.4533 lr 8.99e-06 739s
+2026-10-18 00:34:24,459 INFO train:   validation: loss 0.4928 acc 0.8210 (best 0.5176 at step 800)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.41s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.42s/it]
+2026-10-18 00:34:46,324 INFO train:   training state saved at step 1000
+2026-10-18 00:35:40,057 INFO train: step 1020/4359 loss 0.5073 lr 8.95e-06 835s
+2026-10-18 00:36:31,417 INFO train: step 1040/4359 loss 0.7049 lr 8.90e-06 887s
+2026-10-18 00:37:12,659 INFO train: step 1060/4359 loss 0.3621 lr 8.86e-06 928s
+2026-10-18 00:37:54,288 INFO train: step 1080/4359 loss 0.5041 lr 8.81e-06 970s
+2026-10-18 00:38:34,661 INFO train: step 1100/4359 loss 0.5227 lr 8.76e-06 1010s
+2026-10-18 00:39:18,902 INFO train: step 1120/4359 loss 0.6826 lr 8.71e-06 1054s
+2026-10-18 00:40:01,503 INFO train: step 1140/4359 loss 0.7261 lr 8.66e-06 1097s
+2026-10-18 00:40:43,840 INFO train: step 1160/4359 loss 0.2701 lr 8.61e-06 1139s
+2026-10-18 00:41:26,743 INFO train: step 1180/4359 loss 0.5063 lr 8.56e-06 1182s
+2026-10-18 00:42:07,733 INFO train: step 1200/4359 loss 0.3404 lr 8.50e-06 1223s
+2026-10-18 00:42:17,471 INFO train:   validation: loss 0.4661 acc 0.8100 (best 0.4928 at step 1000)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.76s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.77s/it]
+2026-10-18 00:42:38,738 INFO train:   training state saved at step 1200
+2026-10-18 00:43:29,988 INFO train: step 1220/4359 loss 0.3933 lr 8.45e-06 1305s
+2026-10-18 00:44:22,379 INFO train: step 1240/4359 loss 0.5189 lr 8.40e-06 1358s
+2026-10-18 00:45:04,430 INFO train: step 1260/4359 loss 0.5048 lr 8.34e-06 1400s
+2026-10-18 00:45:45,308 INFO train: step 1280/4359 loss 0.3358 lr 8.29e-06 1441s
+2026-10-18 00:46:26,305 INFO train: step 1300/4359 loss 0.4715 lr 8.23e-06 1482s
+2026-10-18 00:47:08,193 INFO train: step 1320/4359 loss 0.5029 lr 8.17e-06 1523s
+2026-10-18 00:47:47,692 INFO train: step 1340/4359 loss 0.5502 lr 8.12e-06 1563s
+2026-10-18 00:48:28,850 INFO train: step 1360/4359 loss 0.4555 lr 8.06e-06 1604s
+2026-10-18 00:49:11,799 INFO train: step 1380/4359 loss 0.4352 lr 8.00e-06 1647s
+2026-10-18 00:49:53,513 INFO train: step 1400/4359 loss 0.4766 lr 7.94e-06 1689s
+2026-10-18 00:50:03,169 INFO train:   validation: loss 0.4678 acc 0.8190 (best 0.4661 at step 1200)
+2026-10-18 00:50:21,215 INFO train:   training state saved at step 1400
+2026-10-18 00:51:12,923 INFO train: step 1420/4359 loss 0.3521 lr 7.88e-06 1768s
+2026-10-18 00:52:00,769 INFO train: step 1440/4359 loss 0.4969 lr 7.82e-06 1816s
+2026-10-18 00:52:42,761 INFO train: step 1460/4359 loss 0.3323 lr 7.75e-06 1858s
+2026-10-18 00:53:22,466 INFO train: step 1480/4359 loss 0.4210 lr 7.69e-06 1898s
+2026-10-18 00:54:02,116 INFO train: step 1500/4359 loss 0.3494 lr 7.63e-06 1937s
+2026-10-18 00:54:44,404 INFO train: step 1520/4359 loss 0.6829 lr 7.57e-06 1980s
+2026-10-18 00:55:31,886 INFO train: step 1540/4359 loss 0.4518 lr 7.50e-06 2027s
+2026-10-18 00:56:11,428 INFO train: step 1560/4359 loss 0.6173 lr 7.44e-06 2067s
+2026-10-18 00:56:54,239 INFO train: step 1580/4359 loss 0.4971 lr 7.37e-06 2110s
+2026-10-18 00:57:35,145 INFO train: step 1600/4359 loss 0.6176 lr 7.31e-06 2150s
+2026-10-18 00:57:44,807 INFO train:   validation: loss 0.4573 acc 0.8145 (best 0.4661 at step 1200)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.88s/it]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.88s/it]
+2026-10-18 00:58:12,393 INFO train:   training state saved at step 1600
+2026-10-18 00:59:06,346 INFO train: step 1620/4359 loss 0.6036 lr 7.24e-06 2242s
+2026-10-18 00:59:54,207 INFO train: step 1640/4359 loss 0.2278 lr 7.17e-06 2290s
+2026-10-18 01:00:46,864 INFO train: step 1660/4359 loss 0.2778 lr 7.11e-06 2342s
+2026-10-18 01:01:27,362 INFO train: step 1680/4359 loss 0.7217 lr 7.04e-06 2383s
+2026-10-18 01:02:07,468 INFO train: step 1700/4359 loss 0.3138 lr 6.97e-06 2423s
+2026-10-18 01:02:49,384 INFO train: step 1720/4359 loss 0.3771 lr 6.90e-06 2465s
+2026-10-18 01:03:30,410 INFO train: step 1740/4359 loss 0.3827 lr 6.83e-06 2506s
+2026-10-18 01:04:09,634 INFO train: step 1760/4359 loss 0.2939 lr 6.76e-06 2545s
+2026-10-18 01:04:49,946 INFO train: step 1780/4359 loss 0.3146 lr 6.69e-06 2585s
+2026-10-18 01:05:31,316 INFO train: step 1800/4359 loss 0.5857 lr 6.62e-06 2627s
+2026-10-18 01:05:40,972 INFO train:   validation: loss 0.4738 acc 0.8170 (best 0.4573 at step 1600)
+2026-10-18 01:05:56,734 INFO train:   training state saved at step 1800
+2026-10-18 01:06:45,591 INFO train: step 1820/4359 loss 0.5688 lr 6.55e-06 2701s
+2026-10-18 01:07:33,531 INFO train: step 1840/4359 loss 0.4500 lr 6.48e-06 2749s
+2026-10-18 01:08:14,418 INFO train: step 1860/4359 loss 0.4044 lr 6.41e-06 2790s
+2026-10-18 01:08:56,247 INFO train: step 1880/4359 loss 0.4918 lr 6.34e-06 2832s
+2026-10-18 01:09:36,448 INFO train: step 1900/4359 loss 0.3746 lr 6.27e-06 2872s
+2026-10-18 01:10:15,352 INFO train: step 1920/4359 loss 0.3518 lr 6.20e-06 2911s
+2026-10-18 01:10:55,072 INFO train: step 1940/4359 loss 0.4947 lr 6.13e-06 2950s
+2026-10-18 01:11:35,167 INFO train: step 1960/4359 loss 0.4463 lr 6.05e-06 2990s
+2026-10-18 01:12:13,965 INFO train: step 1980/4359 loss 0.5185 lr 5.98e-06 3029s
+2026-10-18 01:12:54,873 INFO train: step 2000/4359 loss 0.5728 lr 5.91e-06 3070s
+2026-10-18 01:13:04,579 INFO train:   validation: loss 0.4570 acc 0.8210 (best 0.4573 at step 1600)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]
+2026-10-18 01:13:26,418 INFO train:   training state saved at step 2000
+2026-10-18 01:14:17,009 INFO train: step 2020/4359 loss 0.4016 lr 5.83e-06 3152s
+2026-10-18 01:15:03,687 INFO train: step 2040/4359 loss 0.4469 lr 5.76e-06 3199s
+2026-10-18 01:15:43,351 INFO train: step 2060/4359 loss 0.4119 lr 5.69e-06 3239s
+2026-10-18 01:16:22,362 INFO train: step 2080/4359 loss 0.2807 lr 5.61e-06 3278s
+2026-10-18 01:17:02,402 INFO train: step 2100/4359 loss 0.6880 lr 5.54e-06 3318s
+2026-10-18 01:17:41,676 INFO train: step 2120/4359 loss 0.4332 lr 5.47e-06 3357s
+2026-10-18 01:18:20,754 INFO train: step 2140/4359 loss 0.5415 lr 5.39e-06 3396s
+2026-10-18 01:18:59,559 INFO train: step 2160/4359 loss 0.3141 lr 5.32e-06 3435s
+2026-10-18 01:19:40,226 INFO train: step 2180/4359 loss 0.4829 lr 5.24e-06 3476s
+2026-10-18 01:20:22,735 INFO train: step 2200/4359 loss 0.4341 lr 5.17e-06 3518s
+2026-10-18 01:20:32,433 INFO train:   validation: loss 0.4295 acc 0.8345 (best 0.4570 at step 2000)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.37s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.37s/it]
+2026-10-18 01:20:58,566 INFO train:   training state saved at step 2200
+2026-10-18 01:21:44,609 INFO train: step 2220/4359 loss 0.4797 lr 5.09e-06 3600s
+2026-10-18 01:22:30,373 INFO train: step 2240/4359 loss 0.4029 lr 5.02e-06 3646s
+2026-10-18 01:23:10,184 INFO train: step 2260/4359 loss 0.2826 lr 4.95e-06 3685s
+2026-10-18 01:23:50,616 INFO train: step 2280/4359 loss 0.2262 lr 4.87e-06 3726s
+2026-10-18 01:24:31,202 INFO train: step 2300/4359 loss 0.7353 lr 4.80e-06 3767s
+2026-10-18 01:25:13,598 INFO train: step 2320/4359 loss 0.5012 lr 4.72e-06 3809s
+2026-10-18 01:25:53,091 INFO train: step 2340/4359 loss 0.3818 lr 4.65e-06 3848s
+2026-10-18 01:26:34,861 INFO train: step 2360/4359 loss 0.2977 lr 4.58e-06 3890s
+2026-10-18 01:27:17,891 INFO train: step 2380/4359 loss 0.4238 lr 4.50e-06 3933s
+2026-10-18 01:27:57,932 INFO train: step 2400/4359 loss 0.4284 lr 4.43e-06 3973s
+2026-10-18 01:28:07,582 INFO train:   validation: loss 0.4189 acc 0.8345 (best 0.4295 at step 2200)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.49s/it]
+2026-10-18 01:28:28,142 INFO train:   training state saved at step 2400
+2026-10-18 01:29:20,537 INFO train: step 2420/4359 loss 0.4449 lr 4.35e-06 4056s
+2026-10-18 01:30:04,240 INFO train: step 2440/4359 loss 0.2978 lr 4.28e-06 4100s
+2026-10-18 01:30:45,124 INFO train: step 2460/4359 loss 0.4510 lr 4.21e-06 4140s
+2026-10-18 01:31:26,258 INFO train: step 2480/4359 loss 0.3918 lr 4.13e-06 4182s
+2026-10-18 01:32:05,204 INFO train: step 2500/4359 loss 0.2923 lr 4.06e-06 4221s
+2026-10-18 01:32:43,728 INFO train: step 2520/4359 loss 0.6971 lr 3.99e-06 4259s
+2026-10-18 01:33:22,557 INFO train: step 2540/4359 loss 0.4262 lr 3.91e-06 4298s
+2026-10-18 01:34:03,717 INFO train: step 2560/4359 loss 0.5127 lr 3.84e-06 4339s
+2026-10-18 01:34:43,851 INFO train: step 2580/4359 loss 0.3096 lr 3.77e-06 4379s
+2026-10-18 01:35:24,510 INFO train: step 2600/4359 loss 0.2597 lr 3.70e-06 4420s
+2026-10-18 01:35:34,184 INFO train:   validation: loss 0.4160 acc 0.8355 (best 0.4189 at step 2400)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]
+2026-10-18 01:35:55,818 INFO train:   training state saved at step 2600
+2026-10-18 01:36:43,053 INFO train: step 2620/4359 loss 0.3548 lr 3.63e-06 4498s
+2026-10-18 01:37:29,840 INFO train: step 2640/4359 loss 0.3417 lr 3.56e-06 4545s
+2026-10-18 01:38:08,655 INFO train: step 2660/4359 loss 0.4570 lr 3.48e-06 4584s
+2026-10-18 01:38:45,906 INFO train: step 2680/4359 loss 0.2687 lr 3.41e-06 4621s
+2026-10-18 01:39:27,479 INFO train: step 2700/4359 loss 0.4802 lr 3.34e-06 4663s
+2026-10-18 01:40:05,500 INFO train: step 2720/4359 loss 0.2978 lr 3.27e-06 4701s
+2026-10-18 01:40:43,716 INFO train: step 2740/4359 loss 0.3520 lr 3.20e-06 4739s
+2026-10-18 01:41:23,024 INFO train: step 2760/4359 loss 0.2497 lr 3.14e-06 4778s
+2026-10-18 01:42:01,339 INFO train: step 2780/4359 loss 0.3600 lr 3.07e-06 4817s
+2026-10-18 01:42:40,122 INFO train: step 2800/4359 loss 0.4625 lr 3.00e-06 4855s
+2026-10-18 01:42:49,785 INFO train:   validation: loss 0.4093 acc 0.8325 (best 0.4160 at step 2600)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.67s/it]
+2026-10-18 01:43:10,650 INFO train:   training state saved at step 2800
+2026-10-18 01:44:00,748 INFO train: step 2820/4359 loss 0.2179 lr 2.93e-06 4936s
+2026-10-18 01:44:53,263 INFO train: step 2840/4359 loss 0.2780 lr 2.86e-06 4989s
+2026-10-18 01:45:34,335 INFO train: step 2860/4359 loss 0.3922 lr 2.80e-06 5030s
+2026-10-18 01:46:11,806 INFO train: step 2880/4359 loss 0.2603 lr 2.73e-06 5067s
+2026-10-18 01:46:51,313 INFO train: step 2900/4359 loss 0.3307 lr 2.66e-06 5107s
+2026-10-18 01:47:29,451 INFO train: step 2920/4359 loss 0.5907 lr 2.60e-06 5145s
+2026-10-18 01:48:09,032 INFO train: step 2940/4359 loss 0.3901 lr 2.53e-06 5184s
+2026-10-18 01:48:46,999 INFO train: step 2960/4359 loss 0.3558 lr 2.47e-06 5222s
+2026-10-18 01:49:25,108 INFO train: step 2980/4359 loss 0.2869 lr 2.41e-06 5260s
+2026-10-18 01:50:04,141 INFO train: step 3000/4359 loss 0.3334 lr 2.34e-06 5299s
+2026-10-18 01:50:13,816 INFO train:   validation: loss 0.4155 acc 0.8330 (best 0.4093 at step 2800)
+2026-10-18 01:50:35,103 INFO train:   training state saved at step 3000
+2026-10-18 01:51:28,522 INFO train: step 3020/4359 loss 0.2558 lr 2.28e-06 5384s
+2026-10-18 01:52:11,868 INFO train: step 3040/4359 loss 0.3399 lr 2.22e-06 5427s
+2026-10-18 01:52:50,898 INFO train: step 3060/4359 loss 0.3016 lr 2.16e-06 5466s
+2026-10-18 01:53:27,827 INFO train: step 3080/4359 loss 0.3332 lr 2.10e-06 5503s
+2026-10-18 01:54:07,854 INFO train: step 3100/4359 loss 0.2960 lr 2.03e-06 5543s
+2026-10-18 01:54:46,615 INFO train: step 3120/4359 loss 0.2671 lr 1.98e-06 5582s
+2026-10-18 01:55:25,324 INFO train: step 3140/4359 loss 0.2852 lr 1.92e-06 5621s
+2026-10-18 01:56:04,507 INFO train: step 3160/4359 loss 0.3601 lr 1.86e-06 5660s
+2026-10-18 01:56:41,875 INFO train: step 3180/4359 loss 0.3056 lr 1.80e-06 5697s
+2026-10-18 01:57:21,124 INFO train: step 3200/4359 loss 0.3862 lr 1.74e-06 5736s
+2026-10-18 01:57:30,775 INFO train:   validation: loss 0.4059 acc 0.8320 (best 0.4093 at step 2800)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.57s/it]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.57s/it]
+2026-10-18 01:57:55,897 INFO train:   training state saved at step 3200
+2026-10-18 01:58:48,521 INFO train: step 3220/4359 loss 0.3908 lr 1.69e-06 5824s
+2026-10-18 01:59:32,706 INFO train: step 3240/4359 loss 0.2320 lr 1.63e-06 5868s
+2026-10-18 02:00:25,432 INFO train: step 3260/4359 loss 0.3009 lr 1.58e-06 5921s
+2026-10-18 02:01:02,632 INFO train: step 3280/4359 loss 0.2924 lr 1.52e-06 5958s
+2026-10-18 02:01:42,959 INFO train: step 3300/4359 loss 0.1732 lr 1.47e-06 5998s
+2026-10-18 02:02:21,582 INFO train: step 3320/4359 loss 0.3213 lr 1.42e-06 6037s
+2026-10-18 02:03:00,213 INFO train: step 3340/4359 loss 0.4426 lr 1.37e-06 6076s
+2026-10-18 02:03:42,076 INFO train: step 3360/4359 loss 0.2741 lr 1.32e-06 6117s
+2026-10-18 02:04:18,912 INFO train: step 3380/4359 loss 0.3108 lr 1.27e-06 6154s
+2026-10-18 02:04:57,704 INFO train: step 3400/4359 loss 0.2640 lr 1.22e-06 6193s
+2026-10-18 02:05:07,410 INFO train:   validation: loss 0.3946 acc 0.8385 (best 0.4059 at step 3200)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.66s/it]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.67s/it]
+2026-10-18 02:05:36,008 INFO train:   training state saved at step 3400
+2026-10-18 02:06:26,366 INFO train: step 3420/4359 loss 0.3596 lr 1.17e-06 6282s
+2026-10-18 02:07:12,054 INFO train: step 3440/4359 loss 0.2594 lr 1.12e-06 6327s
+2026-10-18 02:07:59,668 INFO train: step 3460/4359 loss 0.2454 lr 1.08e-06 6375s
+2026-10-18 02:08:38,913 INFO train: step 3480/4359 loss 0.2812 lr 1.03e-06 6414s
+2026-10-18 02:09:17,070 INFO train: step 3500/4359 loss 0.3507 lr 9.86e-07 6452s
+2026-10-18 02:09:58,608 INFO train: step 3520/4359 loss 0.3061 lr 9.42e-07 6494s
+2026-10-18 02:10:38,228 INFO train: step 3540/4359 loss 0.4304 lr 8.99e-07 6534s
+2026-10-18 02:11:17,249 INFO train: step 3560/4359 loss 0.2345 lr 8.57e-07 6573s
+2026-10-18 02:11:56,217 INFO train: step 3580/4359 loss 0.1903 lr 8.16e-07 6612s
+2026-10-18 02:12:36,893 INFO train: step 3600/4359 loss 0.2875 lr 7.76e-07 6652s
+2026-10-18 02:12:46,539 INFO train:   validation: loss 0.4036 acc 0.8350 (best 0.3946 at step 3400)
+2026-10-18 02:13:00,842 INFO train:   training state saved at step 3600
+2026-10-18 02:13:46,835 INFO train: step 3620/4359 loss 0.2900 lr 7.37e-07 6722s
+2026-10-18 02:14:33,059 INFO train: step 3640/4359 loss 0.2510 lr 6.98e-07 6768s
+2026-10-18 02:15:14,054 INFO train: step 3660/4359 loss 0.1958 lr 6.61e-07 6809s
+2026-10-18 02:15:54,502 INFO train: step 3680/4359 loss 0.2409 lr 6.24e-07 6850s
+2026-10-18 02:16:31,114 INFO train: step 3700/4359 loss 0.4183 lr 5.89e-07 6886s
+2026-10-18 02:17:10,506 INFO train: step 3720/4359 loss 0.2092 lr 5.55e-07 6926s
+2026-10-18 02:17:48,011 INFO train: step 3740/4359 loss 0.2636 lr 5.21e-07 6963s
+2026-10-18 02:18:25,563 INFO train: step 3760/4359 loss 0.2363 lr 4.89e-07 7001s
+2026-10-18 02:19:05,053 INFO train: step 3780/4359 loss 0.3691 lr 4.57e-07 7040s
+2026-10-18 02:19:42,563 INFO train: step 3800/4359 loss 0.3388 lr 4.26e-07 7078s
+2026-10-18 02:19:52,177 INFO train:   validation: loss 0.3903 acc 0.8370 (best 0.3946 at step 3400)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.38s/it]
+2026-10-18 02:20:13,956 INFO train:   training state saved at step 3800
+2026-10-18 02:21:00,675 INFO train: step 3820/4359 loss 0.2298 lr 3.97e-07 7156s
+2026-10-18 02:21:44,086 INFO train: step 3840/4359 loss 0.2933 lr 3.68e-07 7199s
+2026-10-18 02:22:22,759 INFO train: step 3860/4359 loss 0.2727 lr 3.41e-07 7238s
+2026-10-18 02:23:02,213 INFO train: step 3880/4359 loss 0.4439 lr 3.15e-07 7278s
+2026-10-18 02:23:40,894 INFO train: step 3900/4359 loss 0.1638 lr 2.89e-07 7316s
+2026-10-18 02:24:18,483 INFO train: step 3920/4359 loss 0.2904 lr 2.65e-07 7354s
+2026-10-18 02:24:57,306 INFO train: step 3940/4359 loss 0.4004 lr 2.41e-07 7393s
+2026-10-18 02:25:37,155 INFO train: step 3960/4359 loss 0.4529 lr 2.19e-07 7432s
+2026-10-18 02:26:16,576 INFO train: step 3980/4359 loss 0.2036 lr 1.98e-07 7472s
+2026-10-18 02:26:55,730 INFO train: step 4000/4359 loss 0.2555 lr 1.78e-07 7511s
+2026-10-18 02:27:05,373 INFO train:   validation: loss 0.3920 acc 0.8350 (best 0.3903 at step 3800)
+2026-10-18 02:27:30,628 INFO train:   training state saved at step 4000
+2026-10-18 02:28:16,021 INFO train: step 4020/4359 loss 0.3034 lr 1.59e-07 7591s
+2026-10-18 02:29:03,539 INFO train: step 4040/4359 loss 0.1914 lr 1.41e-07 7639s
+2026-10-18 02:29:41,728 INFO train: step 4060/4359 loss 0.3735 lr 1.24e-07 7677s
+2026-10-18 02:30:20,276 INFO train: step 4080/4359 loss 0.3540 lr 1.08e-07 7716s
+2026-10-18 02:31:01,028 INFO train: step 4100/4359 loss 0.3662 lr 9.30e-08 7756s
+2026-10-18 02:31:40,357 INFO train: step 4120/4359 loss 0.3770 lr 7.93e-08 7796s
+2026-10-18 02:32:18,737 INFO train: step 4140/4359 loss 0.2530 lr 6.66e-08 7834s
+2026-10-18 02:32:57,857 INFO train: step 4160/4359 loss 0.4906 lr 5.51e-08 7873s
+2026-10-18 02:33:33,756 INFO train: step 4180/4359 loss 0.5058 lr 4.46e-08 7909s
+2026-10-18 02:34:09,309 INFO train: step 4200/4359 loss 0.2404 lr 3.53e-08 7945s
+2026-10-18 02:34:18,963 INFO train:   validation: loss 0.3909 acc 0.8340 (best 0.3903 at step 3800)
+2026-10-18 02:34:32,837 INFO train:   training state saved at step 4200
+2026-10-18 02:35:17,906 INFO train: step 4220/4359 loss 0.3069 lr 2.70e-08 8013s
+2026-10-18 02:36:04,476 INFO train: step 4240/4359 loss 0.2225 lr 1.99e-08 8060s
+2026-10-18 02:36:43,605 INFO train: step 4260/4359 loss 0.3404 lr 1.38e-08 8099s
+2026-10-18 02:37:23,063 INFO train: step 4280/4359 loss 0.5157 lr 8.83e-09 8138s
+2026-10-18 02:38:00,790 INFO train: step 4300/4359 loss 0.4916 lr 4.97e-09 8176s
+2026-10-18 02:38:40,158 INFO train: step 4320/4359 loss 0.4267 lr 2.21e-09 8215s
+2026-10-18 02:39:18,800 INFO train: step 4340/4359 loss 0.2472 lr 5.52e-10 8254s
+2026-10-18 02:39:53,790 INFO train: step 4359/4359 loss 0.2230 lr 1.38e-12 8289s
+2026-10-18 02:40:03,472 INFO train:   validation: loss 0.3909 acc 0.8355 (best 0.3903 at step 3800)
+{
+ "lr": 1e-05,
+ "steps": 4359,
+ "best": {
+  "step": 3800,
+  "val": {
+   "loss": 0.39027396082133053,
+   "accuracy": 0.837,
+   "n": 2000
+  },
+  "is_base": false
+ },
+ "base_val": {
+  "loss": 2.0506332735419273,
+  "accuracy": 0.407,
+  "n": 2000
+ }
+}

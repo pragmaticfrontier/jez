@@ -1,0 +1,2610 @@
+{
+ "task": "agnews",
+ "checkpoint": "/releases/mixv2/jez-small-1.0.0/weights",
+ "n": 200,
+ "stable_share": 0.985,
+ "max_probability_move": 0.15103699999999998,
+ "gate_95": true,
+ "items": [
+  {
+   "stable": false,
+   "choices": [
+    "business",
+    "world",
+    "world",
+    "world",
+    "world",
+    "business"
+   ],
+   "max_move": 0.09533899999999995,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.05334899999999998,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.04749000000000003,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.03498499999999993,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.033560000000000034,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.023096,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.033668000000000003,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.08530299999999996,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.03896999999999998,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.066944,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.08778900000000006,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": false,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "sci_tech"
+   ],
+   "max_move": 0.08537599999999995,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.058702000000000004,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.02555200000000002,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.033287999999999984,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.088007,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.030775999999999998,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.036468999999999974,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.06643800000000002,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.014241,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.033606000000000004,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.04727,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.12099100000000007,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.046382999999999994,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.029035,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.08294899999999994,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.01737500000000003,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.06905700000000004,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.02856700000000001,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.046093999999999996,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.05527199999999999,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.005308,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.018253,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.045341000000000006,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.00199500000000008,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.008059999999999998,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.04904499999999999,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.021977999999999942,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.008473,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0012679999999999358,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.008938000000000001,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.05646999999999999,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.006277999999999999,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.09996,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.010870000000000046,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.00475099999999995,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.008590000000000098,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.077512,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.009057,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.10665000000000002,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.00673199999999996,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.007189000000000001,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.004642000000000035,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.069794,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.07579999999999998,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0214629999999999,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.08423699999999995,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0024970000000000825,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.041682000000000004,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.05796,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.011537999999999937,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.060283000000000087,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.008790000000000076,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.038640999999999995,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.010858,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.10823899999999997,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.04296900000000001,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.04839699999999997,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.02630600000000005,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0031769999999999993,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.06793100000000002,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.060228000000000004,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.034420000000000006,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.009691000000000005,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.013854000000000002,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.03162999999999999,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.002602,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.04038900000000001,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0035840000000000316,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.06645000000000001,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.008169,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.010060999999999987,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.068769,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.09736299999999998,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.006504,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.005266,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.014403999999999998,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.02385599999999999,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.03030300000000008,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.036222000000000004,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.010565999999999999,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.04157399999999999,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.07183200000000001,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.025081999999999938,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.08604899999999999,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.05899599999999999,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.04279900000000003,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.020249000000000003,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.004201,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.052668999999999994,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.04486200000000007,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.06544099999999999,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0019400000000000528,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.05160500000000001,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.069325,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.09176699999999993,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.05006100000000002,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.07055200000000006,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.08243899999999998,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0033729999999999997,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.01213300000000006,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.10933900000000008,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0017459999999999143,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.06472100000000003,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.08471399999999998,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.06381400000000004,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0024880000000000006,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.05196600000000007,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.038853,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.005490000000000001,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.049025999999999986,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.07358199999999993,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.062179999999999985,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.030486,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.06113099999999999,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.03342899999999993,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.005911000000000001,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.093812,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.05158299999999999,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0025300000000000322,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.038646,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.05334100000000008,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.037797,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0040080000000000116,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.002411000000000052,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.096059,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0037690000000000223,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.033012,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.013056000000000002,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.06268599999999999,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.004580999999999946,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.07458400000000001,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.060386999999999996,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.10298399999999996,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0024049999999999905,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.019750000000000004,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.06920199999999999,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.035394999999999996,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.059849,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.049488000000000004,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.045637999999999956,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.03380300000000003,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0019119999999999996,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.047047000000000005,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.11527199999999993,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.017745999999999998,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.030925,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.04655200000000001,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.017299000000000002,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.05915199999999998,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0065179999999999995,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.049354999999999996,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.011519000000000001,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.008629999999999999,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.07941799999999999,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.066527,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.076283,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.11217000000000002,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0251539999999999,
+   "gold": "world"
+  },
+  {
+   "stable": false,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "world",
+    "business"
+   ],
+   "max_move": 0.15103699999999998,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0017639999999999878,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.05015000000000003,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.07499800000000001,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.09881199999999998,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.07409700000000002,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.08231600000000006,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.039650000000000074,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.08060699999999998,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0010150000000000992,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.07644400000000007,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.02966000000000002,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.026486000000000003,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.056320999999999996,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.06339099999999998,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.010180999999999996,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.100806,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.0027849999999999264,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech",
+    "sci_tech"
+   ],
+   "max_move": 0.11244300000000007,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.037370000000000014,
+   "gold": "sci_tech"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.03795499999999996,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.06655499999999992,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.0017039999999999998,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.050961000000000006,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.07089499999999993,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.003998999999999975,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.001927000000000012,
+   "gold": "world"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.08257000000000003,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports",
+    "sports"
+   ],
+   "max_move": 0.07450199999999996,
+   "gold": "sports"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "world",
+    "world",
+    "world",
+    "world",
+    "world",
+    "world"
+   ],
+   "max_move": 0.08211299999999999,
+   "gold": "business"
+  },
+  {
+   "stable": true,
+   "choices": [
+    "business",
+    "business",
+    "business",
+    "business",
+    "business",
+    "business"
+   ],
+   "max_move": 0.031301,
+   "gold": "business"
+  }
+ ]
+}

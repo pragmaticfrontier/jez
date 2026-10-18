@@ -57,6 +57,8 @@ image = (
     .add_local_dir(str(REPO), remote_path="/root/jez",
                    ignore=[".venv", ".git", "train/data", "runs", "releases", ".pytest_cache", "**/__pycache__",
                            "**/node_modules", "*.egg-info"])
+    # releases/ is ignored above (weights live on the volume), but train.model_card reads its template from there
+    .add_local_file(str(REPO / "releases" / "MODEL_CARD_TEMPLATE.md"), remote_path="/root/jez/releases/MODEL_CARD_TEMPLATE.md")
 )
 data = modal.Volume.from_name("jez-data", create_if_missing=True)
 releases = modal.Volume.from_name("jez-releases", create_if_missing=True)
