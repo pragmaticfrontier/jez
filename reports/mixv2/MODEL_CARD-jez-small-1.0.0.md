@@ -20,8 +20,8 @@ labels at the answer position; never generates text.
 | gate | result |
 |---|---|
 | 1. Conformance suite and both SDKs | PASS: tests/conformance (HTTP, Python SDK, JavaScript SDK) all green |
-| 2. Tier 1 mean +3 points over the base, no task −1 | FAIL: mean +4.8 points, worst task -3.4 (samples) |
-| 3. Pooled choice ECE ≤ 0.05; per-task ECE ≤ max(0.05, Jev's) | PASS: pooled choice ECE 0.025 raw, 0.048 calibrated |
+| 2. Tier 1 mean +3 points over the base, no task −1 | FAIL: mean +4.9 points, worst task -3.4 (full splits) |
+| 3. Pooled choice ECE ≤ 0.05; per-task ECE ≤ max(0.05, Jev's) | PASS: pooled choice ECE 0.023 raw, 0.038 calibrated |
 | 4. Order stability ≥ 95%; no probability moves > 0.05 under reordering | PASS: 98.5% stable on agnews (n=200), max probability move 0.151 |
 | 5. Latency p50 / p99 within Tier 4 limits | PASS on this machine: p50 58.3 ms, p99 61.5 ms (torch on cuda); Tier 4 asks p50 ≤ 150 ms on an M1 Pro and ≤ 60 ms on an L4 |
 
@@ -30,18 +30,18 @@ labels at the answer position; never generates text.
 | task | base | release |
 |---|---|---|
 | sst2 | 83.3% | 81.3% |
-| imdb | 88.4% | 86.9% |
-| hellaswag | 44.7% | 46.2% |
-| arc_easy | 80.8% | 79.5% |
-| arc_challenge | 59.4% | 61.1% |
-| boolq | 75.2% | 73.7% |
+| imdb | 89.2% | 88.1% |
+| hellaswag | 43.6% | 46.9% |
+| arc_easy | 80.0% | 77.7% |
+| arc_challenge | 59.8% | 61.5% |
+| boolq | 74.8% | 72.2% |
 | belebele | 49.4% | 60.1% |
-| agnews | 76.1% | 75.4% |
-| emotion | 55.7% | 54.4% |
-| banking77 | 14.7% | 60.6% |
-| toxicchat | 0.391 | 0.490 |
+| agnews | 73.9% | 73.5% |
+| emotion | 54.9% | 54.4% |
+| banking77 | 12.4% | 60.1% |
+| toxicchat | 0.379 | 0.554 |
 | prompt_injection | 52.6% | 49.1% |
-| sst5 | 24.4% | 34.5% |
+| sst5 | 25.2% | 32.5% |
 
 ## Tier 2 and Tier 3
 
