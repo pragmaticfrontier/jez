@@ -1,5 +1,7 @@
 # Jez
 
+An open source non-generative AI decision model that returns typed answers with calibrated probabilities.
+
 Jez is a pair of decision models that answer [Jev's](https://docs.typesafe.ai/api) HTTP API field for
 field: **Jez-small** (from `Qwen/Qwen3.5-0.8B`) and **Jez-large** (from `google/gemma-4-E4B-it`). A client
 written against TypeSafe's SDK moves to Jez by changing two environment variables, `TYPESAFE_BASE_URL`
