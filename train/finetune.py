@@ -248,6 +248,10 @@ def train_run(backend, recipe, train_items, val_items, args, lr: float, out: Pat
 
     state_path = out / "state.pt" if out is not None else None
     config = {"lr": lr, "steps": steps, "batch": args.batch, "seed": args.seed, "n_train": len(train_items)}
+    # what every saved checkpoint records next to the recipe, so the model card can describe the run truthfully
+    record = {"lr": lr, "steps": steps, "epoch_steps": max(1, len(train_items) // args.batch), "batch": args.batch,
+              "n_train": len(train_items), "data": str(getattr(args, "data", "") or ""),
+              "kl_weight": float(getattr(args, "kl_weight", 0.0) or 0.0), "base_kl_weight": base_kl}
     saved = load_state(model, opt, state_path, config) if state_path is not None and args.resume and state_path.exists() else None
     if saved is not None:
         start, best, history, base_val = saved["step"], saved["best"], saved["history"], saved["base_val"]
@@ -283,10 +287,10 @@ def train_run(backend, recipe, train_items, val_items, args, lr: float, out: Pat
             if val["loss"] < best["val"]["loss"]:
                 best = {"step": step + 1, "val": val, "is_base": False}
                 if out is not None:
-                    save(model, backend, recipe, out, extra={"step": step + 1, "val": val, "lr": lr})
+                    save(model, backend, recipe, out, extra={**record, "step": step + 1, "val": val})
         if out is not None and snapshot_every and (step + 1) % snapshot_every == 0:
             snap = out / "snapshots" / f"step-{step + 1}"
-            save(model, backend, recipe, snap, extra={"step": step + 1, "lr": lr, "snapshot": True})
+            save(model, backend, recipe, snap, extra={**record, "step": step + 1, "snapshot": True})
             log.info("  snapshot saved to %s", snap)
         if state_path is not None and args.state_every and (step + 1) % args.state_every == 0 and step < steps - 1:
             save_state(model, opt, state_path, {"step": step + 1, "best": best, "history": history, "base_val": base_val, "config": config})

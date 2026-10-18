@@ -93,8 +93,8 @@ else:
     run_gpu = None
 
 
-@app.function(image=image, timeout=3600, volumes=VOLUMES)
-def run_cpu(cmd: str, root: str = "/releases") -> int:
+@app.function(image=image, timeout=4 * 3600, volumes=VOLUMES, secrets=[modal.Secret.from_name("huggingface")])
+def run_cpu(cmd: str, root: str = "/releases") -> int:  # tests, and CPU-only jobs such as uploading a release (--gpu none)
     return _run(cmd, root)
 
 
@@ -103,9 +103,9 @@ def main(step: str = "", cmd: str = "", gpu: str = GPU, wait: bool = True) -> No
     command = STEPS.get(step) or cmd
     if not command:
         raise SystemExit(__doc__)
-    fn = run_cpu if step == "tests" else run_gpu
+    fn = run_cpu if step == "tests" or gpu == "none" else run_gpu
     if fn is None:
-        raise SystemExit("JEZ_MODAL_GPU=none: only the tests step runs without a GPU")
+        raise SystemExit("JEZ_MODAL_GPU=none: only the tests step and --gpu none commands run without a GPU")
     if fn is run_gpu and gpu != GPU:
         fn = run_gpu.with_options(gpu=gpu)
     print(f"modal: {command}  (runs/ -> {ROOT}/runs)")

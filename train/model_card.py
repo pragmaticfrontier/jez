@@ -34,6 +34,44 @@ def fmt(v: float | None, f1: bool = False) -> str:
     return f"{v:.3f}" if f1 else f"{100 * v:.1f}%"
 
 
+BASE_LICENCE = {
+    "Qwen/Qwen3.5-0.8B": "Apache 2.0",
+    "google/gemma-4-E4B-it": "Apache 2.0 on the Hub card; Gemma 4 licence terms at https://ai.google.dev/gemma/docs/gemma_4_license",
+}
+
+
+def describe_objective(training: dict, teacher: str) -> str:
+    """The loss as it was actually run: the teacher term only when teacher labels were used, the base anchor when set."""
+    parts = ["cross-entropy on the gold label"]
+    if teacher and not teacher.lower().startswith("none"):
+        parts.append(f"{training.get('kl_weight', 0.5)} × KL(teacher ‖ student)")
+    base_kl = float(training.get("base_kl_weight", 0) or 0)
+    if base_kl > 0:
+        parts.append(f"{base_kl} × KL(base ‖ student) toward the frozen base model's own label distribution (read with the adapter disabled)")
+    return " + ".join(parts) + ", over label logits at the answer position"
+
+
+def describe_schedule(training: dict, lr_note: str) -> str:
+    steps, epoch_steps, batch = training.get("steps"), training.get("epoch_steps"), training.get("batch", 64)
+    if steps and epoch_steps and steps < epoch_steps:
+        span = f"{steps:,} steps of {batch} sequences ({100 * steps / epoch_steps:.0f}% of an epoch)"
+    elif steps:
+        span = f"1 epoch ({steps:,} steps of {batch} sequences)"
+    else:
+        span = f"1 epoch, {batch} sequences per step"
+    return f"cosine, 3% warm-up, {span}, up to 4,096 tokens; learning rate {training.get('lr', '?')} {lr_note}"
+
+
+def describe_selection(training: dict, keep_base: bool, note: str) -> str:
+    if keep_base:
+        return "no checkpoint beat the base model on validation; the release keeps the base weights"
+    val = training.get("val") or {}
+    text = f"best validation loss on a 5% split: step {training.get('step', '?')}"
+    if val:
+        text += f" (loss {val.get('loss', float('nan')):.4f}, accuracy {100 * val.get('accuracy', float('nan')):.1f}%)"
+    return text + (f"; {note}" if note else "")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--release", required=True)
@@ -44,6 +82,8 @@ def main() -> None:
     ap.add_argument("--stability", help="JSON from eval.order_stability")
     ap.add_argument("--teacher", default="none (gold labels only)")
     ap.add_argument("--teacher-licence-checked", default="n/a")
+    ap.add_argument("--lr-note", default="chosen by a 3-rate sweep on 5% of the data", help="how the learning rate was chosen")
+    ap.add_argument("--selection-note", default="", help="how the checkpoint was chosen beyond validation loss")
     args = ap.parse_args()
     rel = Path(args.release)
     spec = registry.MODELS[registry.resolve(args.model_id) or args.model_id]
@@ -84,9 +124,12 @@ def main() -> None:
     latency_rows = (f"| {latency.get('device', '?')} | {latency['backend']} | {latency['p50_ms']} ms | {latency['p99_ms']} ms |") if latency else "| | | not measured | |"
 
     values = {
-        "model_id": spec.id, "base": spec.base, "base_licence": "Apache 2.0",
+        "model_id": spec.id, "base": spec.base, "base_licence": BASE_LICENCE.get(spec.base, "see the base model's card"),
+        "objective": describe_objective(training, args.teacher),
+        "schedule": describe_schedule(training, args.lr_note),
+        "selection": describe_selection(training, keep_base, args.selection_note),
         "method": training.get("recipe", {}).get("method", "not trained"),
-        "method_details": json.dumps({k: v for k, v in training.get("recipe", {}).items() if k != "method"}),
+        "method_details": json.dumps({k: v for k, v in training.get("recipe", {}).items() if k not in ("method", "lr")}),  # the recipe's default lr is not the run's
         "mix_manifest": f"{data_dir}/manifest.json" if data_dir else "none",
         "n_train": manifest.get("splits", {}).get("train", {}).get("n", "?"),
         "n_sources": sum(1 for s in manifest.get("sources", []) if s.get("included")) if manifest else "?",
