@@ -1,0 +1,8 @@
+{
+  "model": "Qwen/Qwen3-1.7B",
+  "temperature": {
+    "choice": 6.6854,
+    "bool": 11.4219,
+    "score": 11.9368
+  }
+}

@@ -1,0 +1,43 @@
+{
+ "sweep": [
+  {
+   "lr": 1e-05,
+   "best_val": {
+    "loss": 0.509,
+    "accuracy": 0.81,
+    "n": 2000
+   },
+   "best_step": 217,
+   "base_val": {
+    "loss": 2.0411,
+    "accuracy": 0.3795,
+    "n": 2000
+   }
+  },
+  {
+   "lr": 2e-05,
+   "best_val": {
+    "loss": 0.5321,
+    "accuracy": 0.807,
+    "n": 2000
+   },
+   "best_step": 217,
+   "base_val": {
+    "loss": 2.0411,
+    "accuracy": 0.3795,
+    "n": 2000
+   }
+  }
+ ],
+ "aborted": [
+  {
+   "lr": 4e-05,
+   "steps_done": 20,
+   "of": 217,
+   "train_loss_at_20": 1.38,
+   "note": "the sweep process died with the controlling session at 02:22 on 2026-10-17 (no reboot); at step 20 its loss was 1.38 against 0.95 for 2e-5 and 0.79 for 1e-5, and 2e-5 already trailed 1e-5, so the leg was not repeated"
+  }
+ ],
+ "chosen_lr": 1e-05,
+ "source": "runs/pipeline-small/sweep.log, assembled by hand on 2026-10-17 after the sweep process was killed"
+}

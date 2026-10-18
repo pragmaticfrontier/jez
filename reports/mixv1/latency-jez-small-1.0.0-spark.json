@@ -1,0 +1,17 @@
+{
+ "checkpoint": "releases/jez-small-1.0.0/weights",
+ "backend": "torch",
+ "device": "cuda",
+ "share_state": true,
+ "runs": 60,
+ "p50_ms": 58.6,
+ "p99_ms": 61.6,
+ "min_ms": 54.7,
+ "input_tokens": 296,
+ "probes": 6,
+ "answers": {
+  "likely_fraud": 0.1462,
+  "claim_type": "accidental_damage",
+  "severity": 1.7924
+ }
+}

@@ -1,0 +1,906 @@
+{
+ "total_requested": 300000,
+ "seed": 0,
+ "ngram": 13,
+ "evaluation_ngrams": 1604140,
+ "sources": [
+  {
+   "name": "multinli",
+   "dataset": "nyu-mll/multi_nli",
+   "config": "default",
+   "split": "train",
+   "licence": "CC BY-SA 3.0 / OANC",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 52286,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "snli",
+   "dataset": "stanfordnlp/snli",
+   "config": "plain_text",
+   "split": "train",
+   "licence": "CC BY-SA 4.0",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 52215,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "qqp",
+   "dataset": "nyu-mll/glue",
+   "config": "qqp",
+   "split": "train",
+   "licence": "Quora terms (unclear)",
+   "commercial_ok": null,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "yelp_polarity",
+   "dataset": "fancyzhx/yelp_polarity",
+   "config": "plain_text",
+   "split": "train",
+   "licence": "Yelp dataset terms (non-commercial research)",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "dbpedia_14",
+   "dataset": "fancyzhx/dbpedia_14",
+   "config": "dbpedia_14",
+   "split": "train",
+   "licence": "CC BY-SA 3.0",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 29714,
+   "dropped_for_overlap": 10
+  },
+  {
+   "name": "trec",
+   "dataset": "SetFit/TREC-QC",
+   "config": "default",
+   "split": "train",
+   "licence": "unspecified (mirror of CogComp/trec)",
+   "commercial_ok": null,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "hwu64",
+   "dataset": "DeepPavlov/hwu64",
+   "config": "default",
+   "split": "train",
+   "licence": "CC BY 4.0",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 8954,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "openbookqa",
+   "dataset": "allenai/openbookqa",
+   "config": "additional",
+   "split": "train",
+   "licence": "Apache 2.0",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 4957,
+   "dropped_for_overlap": 5
+  },
+  {
+   "name": "piqa",
+   "dataset": "baber/piqa",
+   "config": "default",
+   "split": "train",
+   "licence": "AFL 3.0 (mirror of ybisk/piqa)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 16113,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "social_iqa",
+   "dataset": "tasksource/social_i_qa",
+   "config": "default",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of allenai/social_i_qa)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 29714,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "sciq",
+   "dataset": "allenai/sciq",
+   "config": "default",
+   "split": "train",
+   "licence": "CC BY-NC 3.0",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "race",
+   "dataset": "ehovy/race",
+   "config": "all",
+   "split": "train",
+   "licence": "research use only (RACE terms)",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "jigsaw",
+   "dataset": "thesofakillers/jigsaw-toxic-comment-classification-challenge",
+   "config": "default",
+   "split": "train",
+   "licence": "CC0 1.0 (mirror of google/jigsaw_toxicity_pred)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 45100,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "ultrafeedback",
+   "dataset": "openbmb/UltraFeedback",
+   "config": "default",
+   "split": "train",
+   "licence": "MIT",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 45087,
+   "dropped_for_overlap": 125
+  },
+  {
+   "name": "xnli_de",
+   "dataset": "facebook/xnli",
+   "config": "de",
+   "split": "train",
+   "licence": "CC BY-NC 4.0",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "xnli_fr",
+   "dataset": "facebook/xnli",
+   "config": "fr",
+   "split": "train",
+   "licence": "CC BY-NC 4.0",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "xnli_es",
+   "dataset": "facebook/xnli",
+   "config": "es",
+   "split": "train",
+   "licence": "CC BY-NC 4.0",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "xnli_ru",
+   "dataset": "facebook/xnli",
+   "config": "ru",
+   "split": "train",
+   "licence": "CC BY-NC 4.0",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "xnli_ar",
+   "dataset": "facebook/xnli",
+   "config": "ar",
+   "split": "train",
+   "licence": "CC BY-NC 4.0",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "xnli_hi",
+   "dataset": "facebook/xnli",
+   "config": "hi",
+   "split": "train",
+   "licence": "CC BY-NC 4.0",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "xnli_zh",
+   "dataset": "facebook/xnli",
+   "config": "zh",
+   "split": "train",
+   "licence": "CC BY-NC 4.0",
+   "commercial_ok": false,
+   "included": false,
+   "rows_seen": 0,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_en",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "en",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_de",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "de",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_fr",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "fr",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_es",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "es",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_it",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "it",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_pt",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "pt",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_ru",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "ru",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_ar",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "ar",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_hi",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "hi",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_zh",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "zh-CN",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  },
+  {
+   "name": "massive_ja",
+   "dataset": "mteb/amazon_massive_intent",
+   "config": "ja",
+   "split": "train",
+   "licence": "CC BY 4.0 (mirror of AmazonScience/massive)",
+   "commercial_ok": true,
+   "included": true,
+   "rows_seen": 11514,
+   "dropped_for_overlap": 0
+  }
+ ],
+ "noul_balance": {
+  "families": {
+   "dbpedia_14": {
+    "Does this article describe a Album?": {
+     "pool_true": 672,
+     "pool_false": 637,
+     "true": 307,
+     "false": 321
+    },
+    "Does this article describe a Animal?": {
+     "pool_true": 662,
+     "pool_false": 682,
+     "true": 345,
+     "false": 336
+    },
+    "Does this article describe a Artist?": {
+     "pool_true": 698,
+     "pool_false": 664,
+     "true": 356,
+     "false": 353
+    },
+    "Does this article describe a Athlete?": {
+     "pool_true": 673,
+     "pool_false": 673,
+     "true": 323,
+     "false": 336
+    },
+    "Does this article describe a Building?": {
+     "pool_true": 686,
+     "pool_false": 714,
+     "true": 345,
+     "false": 338
+    },
+    "Does this article describe a Company?": {
+     "pool_true": 684,
+     "pool_false": 709,
+     "true": 350,
+     "false": 353
+    },
+    "Does this article describe a EducationalInstitution?": {
+     "pool_true": 656,
+     "pool_false": 715,
+     "true": 327,
+     "false": 353
+    },
+    "Does this article describe a Film?": {
+     "pool_true": 710,
+     "pool_false": 742,
+     "true": 352,
+     "false": 385
+    },
+    "Does this article describe a MeanOfTransportation?": {
+     "pool_true": 633,
+     "pool_false": 716,
+     "true": 326,
+     "false": 353
+    },
+    "Does this article describe a NaturalPlace?": {
+     "pool_true": 664,
+     "pool_false": 667,
+     "true": 324,
+     "false": 344
+    },
+    "Does this article describe a OfficeHolder?": {
+     "pool_true": 668,
+     "pool_false": 694,
+     "true": 349,
+     "false": 359
+    },
+    "Does this article describe a Plant?": {
+     "pool_true": 689,
+     "pool_false": 698,
+     "true": 341,
+     "false": 352
+    },
+    "Does this article describe a Village?": {
+     "pool_true": 760,
+     "pool_false": 684,
+     "true": 383,
+     "false": 346
+    },
+    "Does this article describe a WrittenWork?": {
+     "pool_true": 712,
+     "pool_false": 709,
+     "true": 367,
+     "false": 370
+    }
+   },
+   "jigsaw": {
+    "Does this comment contain a threat?": {
+     "pool_true": 76,
+     "pool_false": 23875,
+     "true": 35,
+     "false": 41
+    },
+    "Is this comment toxic?": {
+     "pool_true": 2376,
+     "pool_false": 21862,
+     "true": 1035,
+     "false": 1144
+    }
+   },
+   "massive_ar": {
+    "Is the intent of this utterance calendar_query?": {
+     "pool_true": 161,
+     "pool_false": 44,
+     "true": 24,
+     "false": 18
+    },
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 217,
+     "pool_false": 46,
+     "true": 27,
+     "false": 21
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 184,
+     "pool_false": 43,
+     "true": 30,
+     "false": 24
+    },
+    "Is the intent of this utterance weather_query?": {
+     "pool_true": 158,
+     "pool_false": 63,
+     "true": 37,
+     "false": 34
+    }
+   },
+   "massive_de": {
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 218,
+     "pool_false": 46,
+     "true": 25,
+     "false": 20
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 161,
+     "pool_false": 69,
+     "true": 30,
+     "false": 24
+    }
+   },
+   "massive_en": {
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 205,
+     "pool_false": 38,
+     "true": 25,
+     "false": 19
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 160,
+     "pool_false": 51,
+     "true": 32,
+     "false": 27
+    },
+    "Is the intent of this utterance qa_factoid?": {
+     "pool_true": 156,
+     "pool_false": 50,
+     "true": 32,
+     "false": 26
+    },
+    "Is the intent of this utterance weather_query?": {
+     "pool_true": 162,
+     "pool_false": 52,
+     "true": 30,
+     "false": 25
+    }
+   },
+   "massive_es": {
+    "Is the intent of this utterance calendar_query?": {
+     "pool_true": 169,
+     "pool_false": 40,
+     "true": 27,
+     "false": 21
+    },
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 237,
+     "pool_false": 49,
+     "true": 26,
+     "false": 20
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 166,
+     "pool_false": 40,
+     "true": 23,
+     "false": 17
+    }
+   },
+   "massive_fr": {
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 217,
+     "pool_false": 61,
+     "true": 33,
+     "false": 27
+    },
+    "Is the intent of this utterance general_quirky?": {
+     "pool_true": 148,
+     "pool_false": 52,
+     "true": 23,
+     "false": 18
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 172,
+     "pool_false": 31,
+     "true": 18,
+     "false": 12
+    },
+    "Is the intent of this utterance qa_factoid?": {
+     "pool_true": 150,
+     "pool_false": 50,
+     "true": 24,
+     "false": 18
+    },
+    "Is the intent of this utterance weather_query?": {
+     "pool_true": 155,
+     "pool_false": 59,
+     "true": 37,
+     "false": 32
+    }
+   },
+   "massive_hi": {
+    "Is the intent of this utterance calendar_query?": {
+     "pool_true": 161,
+     "pool_false": 62,
+     "true": 33,
+     "false": 28
+    },
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 218,
+     "pool_false": 54,
+     "true": 28,
+     "false": 22
+    },
+    "Is the intent of this utterance general_quirky?": {
+     "pool_true": 153,
+     "pool_false": 60,
+     "true": 27,
+     "false": 22
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 186,
+     "pool_false": 55,
+     "true": 32,
+     "false": 26
+    }
+   },
+   "massive_it": {
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 214,
+     "pool_false": 39,
+     "true": 29,
+     "false": 23
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 162,
+     "pool_false": 44,
+     "true": 29,
+     "false": 23
+    },
+    "Is the intent of this utterance qa_factoid?": {
+     "pool_true": 165,
+     "pool_false": 52,
+     "true": 29,
+     "false": 24
+    },
+    "Is the intent of this utterance weather_query?": {
+     "pool_true": 160,
+     "pool_false": 52,
+     "true": 23,
+     "false": 17
+    }
+   },
+   "massive_ja": {
+    "Is the intent of this utterance calendar_query?": {
+     "pool_true": 160,
+     "pool_false": 51,
+     "true": 23,
+     "false": 19
+    },
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 213,
+     "pool_false": 46,
+     "true": 24,
+     "false": 18
+    },
+    "Is the intent of this utterance general_quirky?": {
+     "pool_true": 155,
+     "pool_false": 53,
+     "true": 32,
+     "false": 26
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 164,
+     "pool_false": 51,
+     "true": 32,
+     "false": 27
+    }
+   },
+   "massive_pt": {
+    "Is the intent of this utterance calendar_query?": {
+     "pool_true": 166,
+     "pool_false": 50,
+     "true": 22,
+     "false": 19
+    },
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 228,
+     "pool_false": 59,
+     "true": 37,
+     "false": 31
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 178,
+     "pool_false": 47,
+     "true": 25,
+     "false": 19
+    },
+    "Is the intent of this utterance weather_query?": {
+     "pool_true": 150,
+     "pool_false": 54,
+     "true": 24,
+     "false": 19
+    }
+   },
+   "massive_ru": {
+    "Is the intent of this utterance calendar_query?": {
+     "pool_true": 154,
+     "pool_false": 51,
+     "true": 32,
+     "false": 26
+    },
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 217,
+     "pool_false": 43,
+     "true": 19,
+     "false": 13
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 164,
+     "pool_false": 51,
+     "true": 34,
+     "false": 28
+    },
+    "Is the intent of this utterance qa_factoid?": {
+     "pool_true": 152,
+     "pool_false": 57,
+     "true": 30,
+     "false": 24
+    },
+    "Is the intent of this utterance weather_query?": {
+     "pool_true": 151,
+     "pool_false": 57,
+     "true": 22,
+     "false": 16
+    }
+   },
+   "massive_zh": {
+    "Is the intent of this utterance calendar_set?": {
+     "pool_true": 195,
+     "pool_false": 50,
+     "true": 23,
+     "false": 17
+    },
+    "Is the intent of this utterance play_music?": {
+     "pool_true": 172,
+     "pool_false": 51,
+     "true": 29,
+     "false": 23
+    },
+    "Is the intent of this utterance weather_query?": {
+     "pool_true": 160,
+     "pool_false": 50,
+     "true": 30,
+     "false": 25
+    }
+   },
+   "multinli": {
+    "Does the hypothesis follow from the premise?": {
+     "pool_true": 9451,
+     "pool_false": 18498,
+     "true": 4861,
+     "false": 5372
+    }
+   },
+   "snli": {
+    "Does the hypothesis follow from the premise?": {
+     "pool_true": 9444,
+     "pool_false": 18591,
+     "true": 4917,
+     "false": 5434
+    }
+   },
+   "ultrafeedback": {
+    "Is the response good enough to send to the user as is?": {
+     "pool_true": 14341,
+     "pool_false": 9581,
+     "true": 5509,
+     "false": 4986
+    }
+   }
+  },
+  "dropped": {
+   "massive_ru": 217,
+   "massive_hi": 196,
+   "massive_pt": 215,
+   "massive_es": 154,
+   "massive_it": 189,
+   "massive_en": 232,
+   "massive_fr": 217,
+   "massive_ar": 155,
+   "massive_zh": 150,
+   "jigsaw": 19233,
+   "massive_de": 112,
+   "massive_ja": 181,
+   "multinli": 4214,
+   "snli": 4117,
+   "ultrafeedback": 1882,
+   "dbpedia_14": 294
+  },
+  "min_pool": 200
+ },
+ "splits": {
+  "train": {
+   "n": 278999,
+   "by_type": {
+    "noul": 83655,
+    "score": 55802,
+    "choice": 139542
+   },
+   "choice_over_26_options": 43609,
+   "score_levels": {
+    "3": 24551,
+    "4": 9968,
+    "5": 10661,
+    "10": 10622
+   },
+   "json_states": 175121,
+   "non_english": 73489,
+   "requests": 196954,
+   "multi_question_requests": 51331,
+   "by_source": {
+    "social_iqa": 22808,
+    "multinli": 41592,
+    "snli": 41195,
+    "massive_en": 11277,
+    "massive_pt": 6978,
+    "massive_ar": 7249,
+    "jigsaw": 12048,
+    "massive_hi": 7180,
+    "massive_it": 7082,
+    "massive_ru": 7319,
+    "ultrafeedback": 31046,
+    "dbpedia_14": 22460,
+    "piqa": 12205,
+    "massive_de": 7271,
+    "massive_zh": 7101,
+    "openbookqa": 3815,
+    "massive_es": 7201,
+    "hwu64": 9073,
+    "massive_fr": 7073,
+    "massive_ja": 7026
+   }
+  },
+  "val": {
+   "n": 15000,
+   "by_type": {
+    "score": 3014,
+    "choice": 7471,
+    "noul": 4515
+   },
+   "choice_over_26_options": 2357,
+   "score_levels": {
+    "4": 559,
+    "3": 1366,
+    "10": 528,
+    "5": 561
+   },
+   "json_states": 9310,
+   "non_english": 4108,
+   "requests": 10550,
+   "multi_question_requests": 2774,
+   "by_source": {
+    "jigsaw": 693,
+    "snli": 2306,
+    "ultrafeedback": 1601,
+    "massive_pt": 370,
+    "social_iqa": 1209,
+    "massive_ar": 395,
+    "massive_hi": 382,
+    "piqa": 662,
+    "massive_it": 440,
+    "massive_es": 381,
+    "dbpedia_14": 1184,
+    "massive_zh": 367,
+    "openbookqa": 183,
+    "multinli": 2165,
+    "massive_ru": 410,
+    "massive_en": 524,
+    "massive_fr": 429,
+    "hwu64": 496,
+    "massive_ja": 396,
+    "massive_de": 407
+   }
+  },
+  "calibration": {
+   "n": 6001,
+   "by_type": {
+    "noul": 1830,
+    "score": 1184,
+    "choice": 2987
+   },
+   "choice_over_26_options": 923,
+   "score_levels": {
+    "3": 534,
+    "10": 236,
+    "5": 224,
+    "4": 190
+   },
+   "json_states": 3761,
+   "non_english": 1589,
+   "requests": 4154,
+   "multi_question_requests": 1157,
+   "by_source": {
+    "social_iqa": 517,
+    "multinli": 866,
+    "massive_en": 231,
+    "ultrafeedback": 680,
+    "massive_pt": 181,
+    "dbpedia_14": 479,
+    "massive_ru": 156,
+    "massive_hi": 161,
+    "massive_es": 180,
+    "snli": 890,
+    "jigsaw": 231,
+    "hwu64": 228,
+    "massive_zh": 169,
+    "openbookqa": 82,
+    "massive_ar": 124,
+    "massive_ja": 139,
+    "piqa": 247,
+    "massive_it": 138,
+    "massive_fr": 145,
+    "massive_de": 157
+   }
+  }
+ }
+}

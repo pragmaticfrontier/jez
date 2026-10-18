@@ -1,0 +1,10 @@
+{
+  "model": "jev-latest",
+  "state": "<a long contract, transcript, or record>",
+  "questions": {
+    "has_termination_clause": {
+      "type": "noul",
+      "instructions": "Does the `state` include a clause that lets either party end the agreement early?"
+    }
+  }
+}

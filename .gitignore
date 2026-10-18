@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+runs/
+releases/
+eval/data/*.jsonl
+eval/data/*.meta.json
+eval/data/labels-*.json
+train/data/
+tests/sdk_js/node_modules/

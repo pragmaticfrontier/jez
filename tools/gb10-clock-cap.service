@@ -1,0 +1,19 @@
+# Caps the GB10 GPU clock so sustained inference cannot drive the power spikes that hard-freeze the DGX Spark.
+# Install (needs root):
+#   sudo cp tools/gb10-clock-cap.service /etc/systemd/system/ && sudo systemctl enable --now gb10-clock-cap.service
+# Check:   nvidia-smi --query-gpu=clocks.current.sm --format=csv   (under load it must stay at or below 2200 MHz)
+# Revert:  sudo systemctl disable --now gb10-clock-cap.service && sudo nvidia-smi -rgc
+[Unit]
+Description=Cap GB10 GPU clocks at 2200 MHz (DGX Spark hard-freeze workaround)
+After=nvidia-persistenced.service
+Wants=nvidia-persistenced.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/nvidia-smi -pm 1
+ExecStart=/usr/bin/nvidia-smi -lgc 300,2200
+ExecStop=/usr/bin/nvidia-smi -rgc
+
+[Install]
+WantedBy=multi-user.target
