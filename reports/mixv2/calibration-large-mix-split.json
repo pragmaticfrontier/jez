@@ -1,0 +1,13 @@
+{
+  "model": "jez-large-1.0.0",
+  "temperature": {
+    "noul": 0.9914,
+    "choice:2": 0.7105,
+    "choice:3-5": 1.0226,
+    "choice:6-26": 0.9428,
+    "choice:27-255": 1.0316,
+    "score:2": 1.0,
+    "score:3-5": 0.8003,
+    "score:6-10": 0.916
+  }
+}

@@ -12,7 +12,7 @@ labels at the answer position; never generates text.
 | Objective | {objective} |
 | Schedule | {schedule} |
 | Checkpoint selection | {selection} |
-| Calibration | `calibration.json`, temperatures per question type and option-count bucket, fitted on a 2% calibration split |
+| Calibration | `calibration.json`, temperatures per question type and option-count bucket, {calibration_fit} |
 | Weights tag | `{model_id}` |
 
 ## Acceptance gates (full splits)

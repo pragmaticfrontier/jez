@@ -127,6 +127,43 @@ def fmt(x, pct=True) -> str:
     return f"{100 * x:.1f}%" if pct else f"{x:.3f}"
 
 
+def build_report(results: list[dict], calib: Calibration, by_name: dict[str, Task], label: str, header: str) -> tuple[dict, list[str]]:
+    """The per-task summary (raw and odd-half calibrated metrics, group means, pooled ECE) and the markdown report."""
+    lines = [f"# {label}", "", header, "",
+             "| task | type | n | " + "accuracy/metric" + " | ECE raw | ECE calibrated (odd half) | Brier | p50 ms | p99 ms | tokens |",
+             "|---|---|---|---|---|---|---|---|---|---|"]
+    summary = {}
+    for r in results:
+        t = by_name[r["task"]]
+        raw = task_metrics(t, r["items"], None)
+        cal = task_metrics(t, r["items"], calib, slice(1, None, 2))
+        summary[r["task"]] = {"raw": raw, "calibrated_odd_half": cal, "latency_p50_ms": r["latency_p50_ms"],
+                              "latency_p99_ms": r["latency_p99_ms"], "ms_per_item_batched": r["ms_per_item_batched"],
+                              "tokens_mean": r["tokens_mean"], "n": r["n"], "qtype": r["qtype"], "metric": r["metric"],
+                              "group": r["group"], "tier": r["tier"]}
+        lines.append(f"| {r['task']} | {r['qtype']} | {r['n']} | {fmt(raw['headline'])} | {raw['ece']:.3f} | {cal.get('ece', float('nan')):.3f} "
+                     f"| {raw['brier']:.3f} | {r['latency_p50_ms']:.0f} | {r['latency_p99_ms']:.0f} | {r['tokens_mean']:.0f} |")
+    groups = {}
+    for name, s in summary.items():
+        if s["group"]:
+            groups.setdefault(s["group"], []).append(s["raw"]["headline"])
+    for g, vals in groups.items():
+        summary[g] = {"raw": {"headline": float(np.mean(vals)), "accuracy": float(np.mean(vals))}, "n_tasks": len(vals), "group_mean": True}
+        lines.append(f"| **{g} (mean of {len(vals)})** | | | {fmt(float(np.mean(vals)))} | | | | | | |")
+    tier1 = [s["raw"]["headline"] for n, s in summary.items() if s.get("tier") == 1 and not s.get("group")]
+    tier1 += [s["raw"]["headline"] for n, s in summary.items() if s.get("group_mean")]
+    if tier1:
+        lines.append(f"| **Tier 1 mean** | | | {fmt(float(np.mean(tier1)))} | | | | | | |")
+    pooled = {q: {"raw": pooled_ece(results, q, None), "calibrated_odd_half": pooled_ece(results, q, calib, slice(1, None, 2))}
+              for q in ("choice", "noul", "score")}
+    summary["pooled_ece"] = pooled
+    lines += ["", "## Pooled ECE by question type (Tier 3 gate: choice ≤ 0.05)", "", "| type | answers | ECE raw | ECE calibrated (odd half) |", "|---|---|---|---|"]
+    lines += [f"| {q} | {v['raw']['n']} | {v['raw']['ece']:.3f} | {v['calibrated_odd_half']['ece']:.3f} |" for q, v in pooled.items() if v["raw"]["n"]]
+    lines += ["", "## Temperatures (fitted on even-indexed items)", "", "| bucket | T |", "|---|---|"]
+    lines += [f"| {b} | {T:.3f} |" for b, T in calib.temperature.items()]
+    return summary, lines
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--checkpoint", required=True)
@@ -171,40 +208,9 @@ def main() -> None:
     if args.save_calibration:
         calib.save(args.save_calibration)
 
-    by_name = {t.name: t for t in tasks}
-    lines = [f"# {args.label}", "", f"checkpoint `{args.checkpoint}` · backend {backend.name} on {backend.device} · "
-             f"{'full splits' if args.full else f'{args.n} items per task'} · debias {not args.no_debias}", "",
-             "| task | type | n | " + "accuracy/metric" + " | ECE raw | ECE calibrated (odd half) | Brier | p50 ms | p99 ms | tokens |",
-             "|---|---|---|---|---|---|---|---|---|---|"]
-    summary = {}
-    for r in results:
-        t = by_name[r["task"]]
-        raw = task_metrics(t, r["items"], None)
-        cal = task_metrics(t, r["items"], calib, slice(1, None, 2))
-        summary[r["task"]] = {"raw": raw, "calibrated_odd_half": cal, "latency_p50_ms": r["latency_p50_ms"],
-                              "latency_p99_ms": r["latency_p99_ms"], "ms_per_item_batched": r["ms_per_item_batched"],
-                              "tokens_mean": r["tokens_mean"], "n": r["n"], "qtype": r["qtype"], "metric": r["metric"],
-                              "group": r["group"], "tier": r["tier"]}
-        lines.append(f"| {r['task']} | {r['qtype']} | {r['n']} | {fmt(raw['headline'])} | {raw['ece']:.3f} | {cal.get('ece', float('nan')):.3f} "
-                     f"| {raw['brier']:.3f} | {r['latency_p50_ms']:.0f} | {r['latency_p99_ms']:.0f} | {r['tokens_mean']:.0f} |")
-    groups = {}
-    for name, s in summary.items():
-        if s["group"]:
-            groups.setdefault(s["group"], []).append(s["raw"]["headline"])
-    for g, vals in groups.items():
-        summary[g] = {"raw": {"headline": float(np.mean(vals)), "accuracy": float(np.mean(vals))}, "n_tasks": len(vals), "group_mean": True}
-        lines.append(f"| **{g} (mean of {len(vals)})** | | | {fmt(float(np.mean(vals)))} | | | | | | |")
-    tier1 = [s["raw"]["headline"] for n, s in summary.items() if s.get("tier") == 1 and not s.get("group")]
-    tier1 += [s["raw"]["headline"] for n, s in summary.items() if s.get("group_mean")]
-    if tier1:
-        lines.append(f"| **Tier 1 mean** | | | {fmt(float(np.mean(tier1)))} | | | | | | |")
-    pooled = {q: {"raw": pooled_ece(results, q, None), "calibrated_odd_half": pooled_ece(results, q, calib, slice(1, None, 2))}
-              for q in ("choice", "noul", "score")}
-    summary["pooled_ece"] = pooled
-    lines += ["", "## Pooled ECE by question type (Tier 3 gate: choice ≤ 0.05)", "", "| type | answers | ECE raw | ECE calibrated (odd half) |", "|---|---|---|---|"]
-    lines += [f"| {q} | {v['raw']['n']} | {v['raw']['ece']:.3f} | {v['calibrated_odd_half']['ece']:.3f} |" for q, v in pooled.items() if v["raw"]["n"]]
-    lines += ["", "## Temperatures (fitted on even-indexed items)", "", "| bucket | T |", "|---|---|"]
-    lines += [f"| {b} | {T:.3f} |" for b, T in calib.temperature.items()]
+    header = (f"checkpoint `{args.checkpoint}` · backend {backend.name} on {backend.device} · "
+              f"{'full splits' if args.full else f'{args.n} items per task'} · debias {not args.no_debias}")
+    summary, lines = build_report(results, calib, {t.name: t for t in tasks}, args.label, header)
     out = Path("runs") / args.label
     out.parent.mkdir(exist_ok=True)
     Path(f"{out}.json").write_text(json.dumps({"label": args.label, "checkpoint": args.checkpoint, "model_id": args.model_id,

@@ -115,20 +115,68 @@ exception classes for 400, 401, 413, 415, 422, 429 and 529.
 Backends: `jez/engine/torch_backend.py` (CUDA, tested) and `jez/engine/mlx_backend.py` (Apple Silicon, written
 against mlx-lm and not yet run; it cannot import on the Linux development machine).
 
-## Measured so far (DGX Spark, GB10, bf16)
+## Models
 
-| | Jez-small base (Qwen3.5-0.8B) | Jez-large base (Gemma 4 E4B) |
+The code lives here; the weights live on Hugging Face under the `pragmaticfrontier` account, one repository per model,
+each with the merged weights at its root, the LoRA adapter where there is one, `calibration.json` (the fitted
+temperatures the server applies) and the model card.
+
+| | Jez-small 1.0.0 | Jez-large 1.0.0 |
 |---|---|---|
-| reference request `examples/claim.json`, p50 / p99 | 60 / 63 ms | 201 / 209 ms |
-| weights resident | 1.5 GB | 15.0 GB |
-| GPU power, inference / training | 49 W / 58 W peak | not measured (see below) |
-| Tier 1 zero-shot, 1,000-item samples | 57.6% mean (`runs/qwen3.5-0.8b-zeroshot-n1000.md`) | run twice, both times the machine froze |
+| weights | [`pragmaticfrontier/jez-small-1.0.0`](https://huggingface.co/pragmaticfrontier/jez-small-1.0.0) (1.9 GB) | [`pragmaticfrontier/jez-large-1.0.0`](https://huggingface.co/pragmaticfrontier/jez-large-1.0.0) (14.9 GB merged, 0.56 GB adapter) |
+| base | `Qwen/Qwen3.5-0.8B`, full fine-tune, 1 epoch of mix-v2 | `google/gemma-4-E4B-it`, LoRA r64/α128 on all projections, 1,000 steps of mix-v2 with a 0.5 KL anchor to the base |
+| Tier 1 mean vs its base | **63.1 vs 58.2** (+4.9, full splits) | **80.6 vs 80.9** (−0.3, 1,000-item samples) |
+| gate 2 (+3 mean, no task −1) | FAIL: BoolQ −2.7, ARC-Easy −2.3, IMDB −1.1 | FAIL: prompt injection −6.9, ToxicChat F1 −0.06 |
+| gate 3 (pooled choice ECE ≤ 0.05) | PASS 0.038 | PASS 0.035 (temperatures fitted on half of Tier 1) |
+| gate 4 (order stability ≥ 95%) | PASS 98.5% | PASS 99.0% |
+| gate 5 (latency) | PASS on the Spark: p50 58 ms, p99 62 ms | not measured on the target machines; H100 reference p50 89 ms |
+| record | `reports/mixv2/` (card, Tier 1 tables, gate analyses) | `reports/mixv2/` and `reports/mixv2/pilots/` (recipe pilots) |
 
-Qwen3.5-0.8B zero-shot, 1,000 items per task: SST-2 83.1, IMDB 88.7, HellaSwag 44.6, ARC-Easy 80.7, ARC-Challenge 61.2,
-BoolQ 74.5, Belebele 49.5 (12-language mean), AG News 76.0, Emotion 55.5, BANKING77 15.0, ToxicChat F1 0.417,
-prompt injections 53.4, SST-5 24.3. Pooled choice ECE 0.078 raw and 0.050 after temperature fitting; order stability on
-AG News 88% (gate: 95%). `eval/compare.py` sets any run beside Jev, Microsoft-Decision-1, the Decisions API, Laya and the
-targets from `research/decision-model-benchmarks.csv`.
+Jez-small turns a 0.8B base into a usable decision model (BANKING77 15 → 61, Belebele 49 → 60, SST-5 24 → 35) at the price
+of small drops on three general tasks. Jez-large learns the Jev contract (in-mix validation 71% → 84%) while keeping
+Gemma's general ability intact, but gold-only training on mix-v2 cannot lift a strong base by three points, and the
+prompt-injection task slides; the analysis and the next levers (teacher labels, a mix-v3 with injection, emotion and
+5-level sentiment families) are in `reports/mixv2/pilots/README.md`. Neither model meets gate 2, so neither is a
+TypeSafe-grade drop-in replacement yet; both are honest, calibrated decision models with their cards saying exactly
+where they stand.
+
+### Getting a model
+
+```bash
+# serve straight from the Hub: the weights and calibration.json are fetched on first start
+JEZ_API_KEYS=my-token JEZ_MODELS=jez-large-1.0.0=pragmaticfrontier/jez-large-1.0.0 .venv/bin/jez-serve
+
+# or fetch once and serve from disk (calibration.json is picked up from the same directory)
+hf download pragmaticfrontier/jez-small-1.0.0 --local-dir models/jez-small-1.0.0
+JEZ_API_KEYS=my-token JEZ_MODELS=jez-small-1.0.0=models/jez-small-1.0.0 .venv/bin/jez-serve
+
+# both at once
+JEZ_MODELS=jez-small-1.0.0=pragmaticfrontier/jez-small-1.0.0,jez-large-1.0.0=pragmaticfrontier/jez-large-1.0.0 ...
+```
+
+Without a checkpoint after the id the server falls back to the registry's released weights when `jez/models.py`
+names them, else to the base model, which answers the contract zero-shot (and uncalibrated: the released
+`calibration.json` belongs to the fine-tuned weights).
+
+### Evaluating a model yourself
+
+```bash
+.venv/bin/python -m eval.run_eval --checkpoint pragmaticfrontier/jez-small-1.0.0 --label my-run --model-id jez-small-1.0.0 \
+    --tasks tier1 --n 1000                       # Tier 1 at 1,000 items per task (about 10 min on an H100; --full for the splits)
+.venv/bin/python -m eval.gate2 runs/qwen3.5-0.8b-zeroshot-n1000.json runs/my-run.json --bootstrap   # gate-2 table with paired intervals
+.venv/bin/python -m eval.compare runs/qwen3.5-0.8b-zeroshot-n1000.json runs/my-run.json               # beside Jev and the published figures
+```
+
+The base runs these compare against (`qwen3.5-0.8b-zeroshot`, `gemma-4-E4B-it-zeroshot`) are in `reports/`; the raw run
+JSON with per-item log-probabilities is not in git (11 MB per run) and is regenerated by the commands above.
+
+## Measured so far
+
+Base models on the DGX Spark (GB10, bf16): the reference request `examples/claim.json` answers in 60 / 63 ms (p50 / p99)
+on Qwen3.5-0.8B and 201 / 209 ms on Gemma 4 E4B; weights resident 1.5 GB and 15.0 GB. Zero-shot Tier 1 at 1,000 items:
+Qwen3.5-0.8B 58.7 mean (`reports/qwen3.5-0.8b-zeroshot-tier1-n1000.md`, 58.2 on the full splits), Gemma 4 E4B 80.9
+(`reports/gemma-4-E4B-it-zeroshot-tier1-n1000.md`). `eval/compare.py` sets any run beside Jev, Microsoft-Decision-1,
+the Decisions API, Laya and the targets from `research/decision-model-benchmarks.csv`.
 
 ### The machine powers itself off under sustained heavy GPU load
 
@@ -188,6 +236,9 @@ and after temperature fitting on the other half of the sample, Brier, and p50/p9
 tools/gpu_guard.py --cuda-fraction 0.7 -- .venv/bin/python -m train.teacher_label --teacher <27B teacher> --data train/data/mix-v2/train.jsonl --licence-checked
 tools/gpu_guard.py -- .venv/bin/python -m train.finetune --model jez-small-1.0.0 --data train/data/mix-v2 --sweep 1e-5,2e-5,4e-5
 tools/gpu_guard.py -- .venv/bin/python -m train.finetune --model jez-small-1.0.0 --data train/data/mix-v2 --lr 1e-5 --out releases/jez-small-1.0.0
+# Jez-large: short LoRA runs with a KL anchor to the base, snapshots scored on Tier 1 samples, then a release from the chosen adapter
+train/pilot_large.sh train/data/mix-v2 releases/pilots/anchored anchored --lr 5e-5 --steps 1000 --snapshot-every 250 --base-kl-weight 0.5
+train/release_from_adapter.sh releases/pilots/anchored/snapshots/step-1000/adapter releases/pilots/anchored/training.json releases/jez-large-1.0.0
 ```
 
 The mix builder balances every yes/no question family (one source, one instruction text, at least 200 examples) to
@@ -234,6 +285,8 @@ tools/          gpu_guard (memory limits, thermal governor, telemetry), no_guard
 tests/          conformance suite, SDK tests (Python, JavaScript), unit tests, GPU tests
 research/       published figures (CSV) and their provenance
 examples/       claim.json (reference request), sysone-era scripts
+reports/        the evaluation record per round: model cards, Tier 1 tables, gate analyses, training summaries
+releases/       MODEL_CARD_TEMPLATE.md; the weights themselves live on the Hub (see Models)
 sysone/, bench/ the earlier prototype, unchanged
 ```
 
@@ -241,9 +294,9 @@ sysone/, bench/ the earlier prototype, unchanged
 
 | milestone | state |
 |---|---|
-| M0 Jev schema, server, conformance suite, SDK tests | done; gate 1 passes with a stand-in behind every id |
+| M0 Jev schema, server, conformance suite, SDK tests | done; gate 1 passes |
 | M1 both bases on torch, 255-label tables, Gemma cache sharing, latency | done on CUDA; MLX backend written, untested |
-| M2 the thirteen Tier 1 loaders, compare columns | loaders and compare done; Tier 2 sets need the data files |
-| M3 manifest, overlap filter, teacher labels | scripts done; the 300k mix and teacher run have not been executed |
-| M4 fine-tunes | script done, not run |
-| M5 full-split runs, model cards, tagged weights | not started |
+| M2 the thirteen Tier 1 loaders, compare columns | done; Tier 2 sets need the data files (`eval/data/tier2/README.md`) |
+| M3 manifest, overlap filter, teacher labels | mix-v2 built (279k examples, 20 sources, `reports/mix-v2-manifest.json`); teacher labels not produced |
+| M4 fine-tunes | both trained on Modal H100s; recipes and records in `reports/mixv2/` |
+| M5 full-split runs, model cards, tagged weights | Jez-small on full splits, Jez-large on 1,000-item samples; cards written; weights on the Hub, gate 2 open for both |

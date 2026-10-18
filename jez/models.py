@@ -23,6 +23,7 @@ class ModelSpec:
     release_date: str
     native_context: int
     cost_per_mtok_usd: float  # reported in the Jez-Cost-Usd header; informational
+    weights: str | None = None  # Hugging Face id of the released fine-tuned weights; None until a release is published
 
 
 MODELS: dict[str, ModelSpec] = {
@@ -84,9 +85,10 @@ def family_of(model_id: str) -> str:
 def parse_model_env(value: str | None) -> list[tuple[str, str]]:
     """Parse ``JEZ_MODELS``: a comma-separated list of ``id`` or ``id=checkpoint`` entries.
 
-    ``jez-small-1.0.0`` serves the registry's base checkpoint (or the fine-tuned
-    release once it exists); ``jez-small-1.0.0=Qwen/Qwen3-1.7B`` puts a stand-in
-    checkpoint behind the id, which is how milestone 0 runs before the fine-tune.
+    ``jez-small-1.0.0`` serves the released weights (``ModelSpec.weights``) when the
+    registry names them, else the base checkpoint; ``JEZ_CHECKPOINT_SMALL`` /
+    ``JEZ_CHECKPOINT_LARGE`` override that for a family, and ``jez-small-1.0.0=<path or
+    Hub id>`` puts a stand-in behind one id, which is how milestone 0 ran before the fine-tune.
     """
     entries: list[tuple[str, str]] = []
     for raw in (value or "jez-small-1.0.0").split(","):
@@ -98,6 +100,6 @@ def parse_model_env(value: str | None) -> list[tuple[str, str]]:
         if resolved is None:
             raise ValueError(f"JEZ_MODELS: unknown model id {model_id!r}")
         spec = MODELS[resolved]
-        ckpt = checkpoint.strip() or os.environ.get(f"JEZ_CHECKPOINT_{spec.family.upper()}", "").strip() or spec.base
+        ckpt = checkpoint.strip() or os.environ.get(f"JEZ_CHECKPOINT_{spec.family.upper()}", "").strip() or spec.weights or spec.base
         entries.append((resolved, ckpt))
     return entries

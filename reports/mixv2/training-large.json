@@ -1,0 +1,31 @@
+{
+ "recipe": {
+  "method": "lora",
+  "lr": 0.0001,
+  "rank": 64,
+  "alpha": 128,
+  "targets": [
+   "q_proj",
+   "k_proj",
+   "v_proj",
+   "o_proj",
+   "gate_proj",
+   "up_proj",
+   "down_proj"
+  ]
+ },
+ "step": 1000,
+ "val": {
+  "loss": 0.406020931340754,
+  "accuracy": 0.837,
+  "n": 2000
+ },
+ "lr": 5e-05,
+ "base_kl_weight": 0.5,
+ "kl_weight": 0.5,
+ "steps": 1000,
+ "epoch_steps": 4359,
+ "batch": 64,
+ "n_train": 278999,
+ "data": "/data/mix-v2"
+}

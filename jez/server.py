@@ -21,6 +21,7 @@ import hmac
 import json
 import logging
 import os
+import re
 import threading
 import time
 import zlib
@@ -42,6 +43,34 @@ log = logging.getLogger("jez")
 
 MAX_BODY = 32 * 1024 * 1024  # 32 MiB, compressed or not
 ZSTD_MAX_WINDOW = 8 * 1024 * 1024
+
+
+_HUB_ID = re.compile(r"^[A-Za-z0-9][\w.-]*/[\w.-]+$")
+
+
+def calibration_file(pattern: str, model_id: str, checkpoint: str, download=None) -> str:
+    """Where the temperatures for ``model_id`` live.
+
+    The configured pattern (``releases/{model}/calibration.json``) wins when that file exists. Otherwise a checkpoint
+    directory that carries its own ``calibration.json`` (a Hub snapshot fetched with ``hf download``) is used, and a
+    Hub id has its ``calibration.json`` fetched from the repository; the release repositories ship it next to the
+    weights. Anything else leaves the pattern path, which loads as T = 1.
+    """
+    path = pattern.format(model=model_id)
+    if os.path.exists(path):
+        return path
+    beside = os.path.join(checkpoint, "calibration.json")
+    if os.path.isdir(checkpoint) and os.path.exists(beside):
+        return beside
+    if _HUB_ID.match(checkpoint) and not os.path.exists(checkpoint):
+        try:
+            if download is None:
+                from huggingface_hub import hf_hub_download
+                download = hf_hub_download
+            return download(checkpoint, "calibration.json")
+        except Exception as exc:  # no such file, offline, gated: serve uncalibrated rather than fail
+            log.warning("no calibration.json for %s in %s (%s); serving with T=1", model_id, checkpoint, exc)
+    return path
 
 
 class Settings:
@@ -71,7 +100,7 @@ class Service:
     def load(self) -> None:
         for model_id, checkpoint in registry.parse_model_env(self.settings.models):
             backend = load_backend(checkpoint, self.settings.backend, max_batch=self.settings.max_batch)
-            calib = Calibration.load(self.settings.calibration.format(model=model_id))
+            calib = Calibration.load(calibration_file(self.settings.calibration, model_id, checkpoint))
             if calib.model and calib.model not in (model_id, checkpoint):
                 log.warning("calibration for %s was fitted for %s; using T=1", model_id, calib.model)
                 calib = Calibration()

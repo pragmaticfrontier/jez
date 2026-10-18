@@ -1,0 +1,17 @@
+{
+ "checkpoint": "/releases/mixv2/jez-large-1.0.0-anchored/weights",
+ "backend": "torch",
+ "device": "cuda",
+ "share_state": true,
+ "runs": 60,
+ "p50_ms": 88.7,
+ "p99_ms": 95.5,
+ "min_ms": 83.0,
+ "input_tokens": 299,
+ "probes": 6,
+ "answers": {
+  "likely_fraud": 0.7781,
+  "claim_type": "accidental_damage",
+  "severity": 2.0702
+ }
+}

@@ -1,0 +1,241 @@
+no_guard: running python3 -m train.finetune --model jez-large-1.0.0 --data /data/mix-v2 --out /releases/mixv2/pilots/anchored --micro-tokens 16384 --eval-every 250 --log-every 20 --lr 5e-5 --steps 1000 --snapshot-every 250 --base-kl-weight 0.5
+2026-10-18 16:51:08,024 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it "HTTP/1.1 200 OK"
+2026-10-18 16:51:08,150 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-18 16:51:08,207 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-18 16:51:10,113 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it "HTTP/1.1 200 OK"
+2026-10-18 16:51:10,211 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 16:51:10,216 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-4-E4B-it/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json?%2Fgoogle%2Fgemma-4-E4B-it%2Fresolve%2Fmain%2Fconfig.json=&etag=%22d68960fdcce766f2bfe41436325a8a483a74d125%22 "HTTP/1.1 200 OK"
+2026-10-18 16:51:10,273 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-10-18 16:51:10,333 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-10-18 16:51:10,467 INFO jez.engine: memory preflight: google/gemma-4-E4B-it needs ~19.5 GB, budget 76.5 GB
+2026-10-18 16:51:10,718 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/revision/main "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/665 [00:00<?, ?it/s]Loading weights:   0%|          | 1/665 [00:00<05:05,  2.18it/s]Loading weights:   0%|          | 2/665 [00:02<15:12,  1.38s/it]Loading weights:   6%|▌         | 39/665 [00:02<00:28, 21.83it/s]Loading weights:  11%|█         | 71/665 [00:02<00:13, 44.33it/s]Loading weights:  15%|█▍        | 99/665 [00:02<00:08, 66.60it/s]Loading weights:  19%|█▉        | 125/665 [00:02<00:06, 89.73it/s]Loading weights:  23%|██▎       | 155/665 [00:03<00:04, 119.14it/s]Loading weights:  28%|██▊       | 186/665 [00:03<00:03, 151.62it/s]Loading weights:  32%|███▏      | 213/665 [00:03<00:02, 161.01it/s]Loading weights:  36%|███▋      | 242/665 [00:03<00:02, 186.21it/s]Loading weights:  41%|████      | 273/665 [00:03<00:01, 214.12it/s]Loading weights:  45%|████▌     | 301/665 [00:03<00:01, 220.58it/s]Loading weights:  49%|████▉     | 329/665 [00:03<00:01, 235.22it/s]Loading weights:  60%|█████▉    | 397/665 [00:03<00:00, 347.34it/s]Loading weights:  69%|██████▊   | 456/665 [00:03<00:00, 409.14it/s]Loading weights:  77%|███████▋  | 510/665 [00:03<00:00, 438.79it/s]Loading weights:  86%|████████▌ | 569/665 [00:04<00:00, 476.64it/s]Loading weights:  94%|█████████▎| 623/665 [00:04<00:00, 493.02it/s]Loading weights: 100%|██████████| 665/665 [00:04<00:00, 152.53it/s]
+[transformers] [1mGemma4ForCausalLM LOAD REPORT[0m from: google/gemma-4-E4B-it
+Key                                                                          | Status     |  | 
+-----------------------------------------------------------------------------+------------+--+-
+model.vision_tower.encoder.layers.{0...15}.mlp.gate_proj.output_min          | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.relative_k_proj.weight           | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_start.linear.weight         | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.k_proj.input_max        | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.o_proj.output_min       | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.gate_proj.input_max           | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.gate_proj.input_min           | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_2.linear.weight    | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.o_proj.linear.weight    | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.v_proj.output_max       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_2.input_min        | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.up_proj.input_max             | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_2.output_min       | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.o_proj.input_min        | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.v_proj.input_max        | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.pre_feedforward_layernorm.weight  | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.v_proj.output_max                | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_end.output_max              | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.q_proj.linear.weight    | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.post_attention_layernorm.weight   | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.norm_pre_attn.weight                       | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.q_proj.input_min        | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_1.output_min       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.post.input_max                   | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_1.output_max       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.pre_layer_norm.weight        | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_end.output_min              | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.v_proj.input_min        | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_1.output_min       | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.v_proj.output_min       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.k_proj.input_max                 | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.down_proj.input_max           | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.down_proj.input_min           | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_start.input_max             | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.per_dim_scale                    | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.input_layernorm.weight            | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.conv_norm.weight                   | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_2.input_min        | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.post_layer_norm.weight       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_2.output_max       | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.gate_proj.output_max          | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.norm_post_attn.weight                      | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.post.input_min                   | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_1.input_max        | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_end.input_min               | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.k_proj.output_min       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.k_proj.input_min                 | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.k_proj.input_min        | UNEXPECTED |  | 
+model.audio_tower.output_proj.weight                                         | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.q_proj.linear.weight             | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.post_feedforward_layernorm.weight | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.k_norm.weight           | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.q_proj.input_max        | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.q_proj.output_min                | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_end.linear.weight           | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.up_proj.input_min             | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.q_proj.output_min       | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.down_proj.output_min          | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.q_proj.output_max       | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.up_proj.output_min            | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_2.output_min       | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.q_norm.weight           | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.k_proj.output_max       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.q_proj.output_max                | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.up_proj.output_max            | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_2.linear.weight    | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.k_proj.linear.weight    | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_1.linear.weight    | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.o_proj.input_max        | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.norm_out.weight                            | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.q_proj.input_min                 | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.q_proj.input_max                 | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_2.input_max        | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.k_proj.output_min                | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_2.output_max       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_1.input_min        | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.depthwise_conv1d.weight            | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.post.linear.weight               | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.down_proj.linear.weight       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.v_proj.output_min                | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward2.ffw_layer_1.linear.weight    | UNEXPECTED |  | 
+model.vision_tower.patch_embedder.input_proj.weight                          | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_end.input_max               | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.v_proj.input_max                 | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.down_proj.output_max          | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.k_proj.linear.weight             | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.up_proj.linear.weight         | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_start.input_min             | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.pre_layer_norm.weight        | UNEXPECTED |  | 
+model.audio_tower.subsample_conv_projection.layer0.norm.weight               | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.v_proj.input_min                 | UNEXPECTED |  | 
+model.audio_tower.subsample_conv_projection.input_proj_linear.weight         | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_1.input_max        | UNEXPECTED |  | 
+model.audio_tower.output_proj.bias                                           | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.post.output_min                  | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.v_proj.linear.weight    | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_start.output_min            | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.self_attn.o_proj.output_max       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.v_proj.linear.weight             | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_2.input_max        | UNEXPECTED |  | 
+model.vision_tower.encoder.layers.{0...15}.mlp.gate_proj.linear.weight       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.post_layer_norm.weight       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.pre_layer_norm.weight              | UNEXPECTED |  | 
+model.embed_audio.embedding_projection.weight                                | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.lconv1d.linear_start.output_max            | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.k_proj.output_max                | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.self_attn.post.output_max                  | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_1.output_max       | UNEXPECTED |  | 
+model.audio_tower.layers.{0...11}.feed_forward1.ffw_layer_1.input_min        | UNEXPECTED |  | 
+model.embed_vision.embedding_projection.weight                               | UNEXPECTED |  | 
+model.audio_tower.subsample_conv_projection.layer1.norm.weight               | UNEXPECTED |  | 
+model.audio_tower.subsample_conv_projection.layer0.conv.weight               | UNEXPECTED |  | 
+model.audio_tower.subsample_conv_projection.layer1.conv.weight               | UNEXPECTED |  | 
+model.vision_tower.patch_embedder.position_embedding_table                   | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-10-18 16:51:15,883 INFO jez.engine: loaded google/gemma-4-E4B-it (gemma4) on cuda torch.bfloat16 in 8.0s; 255 single-token choice labels
+2026-10-18 16:54:47,704 INFO train: train: 278997 of 278999 examples usable
+2026-10-18 16:54:49,195 INFO train: val: 2000 of 2000 examples usable
+2026-10-18 16:54:50,792 INFO train: LoRA trainable parameters: 139.5M
+2026-10-18 16:55:22,450 INFO train: base model on validation: loss 2.0868 acc 0.7095
+2026-10-18 16:57:28,363 INFO train: step 20/1000 loss 1.0876 lr 3.33e-05 126s
+2026-10-18 16:59:24,742 INFO train: step 40/1000 loss 0.5752 lr 5.00e-05 242s
+2026-10-18 17:01:20,936 INFO train: step 60/1000 loss 0.8107 lr 4.99e-05 358s
+2026-10-18 17:03:20,258 INFO train: step 80/1000 loss 0.5281 lr 4.97e-05 478s
+2026-10-18 17:05:18,121 INFO train: step 100/1000 loss 0.9739 lr 4.94e-05 596s
+2026-10-18 17:07:16,075 INFO train: step 120/1000 loss 0.5388 lr 4.90e-05 714s
+2026-10-18 17:09:09,468 INFO train: step 140/1000 loss 0.4441 lr 4.85e-05 827s
+2026-10-18 17:11:04,738 INFO train: step 160/1000 loss 1.0047 lr 4.78e-05 942s
+2026-10-18 17:13:01,526 INFO train: step 180/1000 loss 0.5576 lr 4.71e-05 1059s
+2026-10-18 17:15:00,896 INFO train: step 200/1000 loss 0.3911 lr 4.63e-05 1178s
+2026-10-18 17:15:03,808 INFO train:   training state saved at step 200
+2026-10-18 17:16:59,014 INFO train: step 220/1000 loss 0.6723 lr 4.55e-05 1296s
+2026-10-18 17:18:56,914 INFO train: step 240/1000 loss 0.6911 lr 4.45e-05 1414s
+2026-10-18 17:20:21,307 INFO train:   validation: loss 0.4425 acc 0.8215 (best 2.0868 at step 0)
+2026-10-18 17:20:21,439 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 17:20:21,469 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-4-E4B-it/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json?%2Fgoogle%2Fgemma-4-E4B-it%2Fresolve%2Fmain%2Fconfig.json=&etag=%22d68960fdcce766f2bfe41436325a8a483a74d125%22 "HTTP/1.1 200 OK"
+2026-10-18 17:20:21,530 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/revision/main "HTTP/1.1 200 OK"
+2026-10-18 17:20:22,803 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 17:20:22,810 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-4-E4B-it/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json?%2Fgoogle%2Fgemma-4-E4B-it%2Fresolve%2Fmain%2Fconfig.json=&etag=%22d68960fdcce766f2bfe41436325a8a483a74d125%22 "HTTP/1.1 200 OK"
+2026-10-18 17:20:22,874 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/revision/main "HTTP/1.1 200 OK"
+2026-10-18 17:20:23,806 INFO train:   snapshot saved to /releases/mixv2/pilots/anchored/snapshots/step-250
+2026-10-18 17:21:25,789 INFO train: step 260/1000 loss 0.7578 lr 4.34e-05 1563s
+2026-10-18 17:23:23,324 INFO train: step 280/1000 loss 0.6507 lr 4.23e-05 1681s
+2026-10-18 17:25:22,399 INFO train: step 300/1000 loss 0.6747 lr 4.11e-05 1800s
+2026-10-18 17:27:24,150 INFO train: step 320/1000 loss 0.7691 lr 3.98e-05 1922s
+2026-10-18 17:29:22,250 INFO train: step 340/1000 loss 0.8079 lr 3.85e-05 2040s
+2026-10-18 17:31:21,800 INFO train: step 360/1000 loss 0.5383 lr 3.71e-05 2159s
+2026-10-18 17:33:17,233 INFO train: step 380/1000 loss 0.5083 lr 3.57e-05 2275s
+2026-10-18 17:35:14,861 INFO train: step 400/1000 loss 0.3919 lr 3.42e-05 2392s
+2026-10-18 17:35:17,900 INFO train:   training state saved at step 400
+2026-10-18 17:37:16,456 INFO train: step 420/1000 loss 0.6074 lr 3.26e-05 2514s
+2026-10-18 17:39:14,519 INFO train: step 440/1000 loss 0.7124 lr 3.11e-05 2632s
+2026-10-18 17:41:06,981 INFO train: step 460/1000 loss 0.7270 lr 2.95e-05 2744s
+2026-10-18 17:42:57,953 INFO train: step 480/1000 loss 0.6097 lr 2.79e-05 2855s
+2026-10-18 17:44:48,818 INFO train: step 500/1000 loss 0.6860 lr 2.63e-05 2966s
+2026-10-18 17:45:17,532 INFO train:   validation: loss 0.4290 acc 0.8315 (best 0.4425 at step 250)
+2026-10-18 17:45:17,632 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 17:45:17,661 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-4-E4B-it/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json?%2Fgoogle%2Fgemma-4-E4B-it%2Fresolve%2Fmain%2Fconfig.json=&etag=%22d68960fdcce766f2bfe41436325a8a483a74d125%22 "HTTP/1.1 200 OK"
+2026-10-18 17:45:17,719 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/revision/main "HTTP/1.1 200 OK"
+2026-10-18 17:45:18,961 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 17:45:18,969 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-4-E4B-it/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json?%2Fgoogle%2Fgemma-4-E4B-it%2Fresolve%2Fmain%2Fconfig.json=&etag=%22d68960fdcce766f2bfe41436325a8a483a74d125%22 "HTTP/1.1 200 OK"
+2026-10-18 17:45:19,029 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/revision/main "HTTP/1.1 200 OK"
+2026-10-18 17:45:20,147 INFO train:   snapshot saved to /releases/mixv2/pilots/anchored/snapshots/step-500
+2026-10-18 17:47:11,905 INFO train: step 520/1000 loss 0.6523 lr 2.47e-05 3109s
+2026-10-18 17:49:06,088 INFO train: step 540/1000 loss 0.6454 lr 2.31e-05 3224s
+2026-10-18 17:50:57,879 INFO train: step 560/1000 loss 0.5313 lr 2.14e-05 3335s
+2026-10-18 17:52:47,247 INFO train: step 580/1000 loss 0.6331 lr 1.99e-05 3445s
+2026-10-18 17:54:40,184 INFO train: step 600/1000 loss 0.5149 lr 1.83e-05 3558s
+2026-10-18 17:54:43,162 INFO train:   training state saved at step 600
+2026-10-18 17:56:40,947 INFO train: step 620/1000 loss 0.7309 lr 1.67e-05 3678s
+2026-10-18 17:58:35,094 INFO train: step 640/1000 loss 0.7765 lr 1.52e-05 3793s
+2026-10-18 18:00:32,311 INFO train: step 660/1000 loss 0.5900 lr 1.38e-05 3910s
+2026-10-18 18:02:26,572 INFO train: step 680/1000 loss 0.4541 lr 1.23e-05 4024s
+2026-10-18 18:04:25,685 INFO train: step 700/1000 loss 0.5890 lr 1.10e-05 4143s
+2026-10-18 18:06:22,513 INFO train: step 720/1000 loss 0.6588 lr 9.66e-06 4260s
+2026-10-18 18:08:18,389 INFO train: step 740/1000 loss 0.4051 lr 8.41e-06 4376s
+2026-10-18 18:09:41,868 INFO train:   validation: loss 0.4062 acc 0.8365 (best 0.4290 at step 500)
+2026-10-18 18:09:41,977 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 18:09:41,983 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-4-E4B-it/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json?%2Fgoogle%2Fgemma-4-E4B-it%2Fresolve%2Fmain%2Fconfig.json=&etag=%22d68960fdcce766f2bfe41436325a8a483a74d125%22 "HTTP/1.1 200 OK"
+2026-10-18 18:09:42,042 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/revision/main "HTTP/1.1 200 OK"
+2026-10-18 18:09:43,341 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 18:09:43,347 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-4-E4B-it/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json?%2Fgoogle%2Fgemma-4-E4B-it%2Fresolve%2Fmain%2Fconfig.json=&etag=%22d68960fdcce766f2bfe41436325a8a483a74d125%22 "HTTP/1.1 200 OK"
+2026-10-18 18:09:43,409 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/revision/main "HTTP/1.1 200 OK"
+2026-10-18 18:09:44,613 INFO train:   snapshot saved to /releases/mixv2/pilots/anchored/snapshots/step-750
+2026-10-18 18:10:43,641 INFO train: step 760/1000 loss 0.4318 lr 7.24e-06 4521s
+2026-10-18 18:12:39,471 INFO train: step 780/1000 loss 0.6218 lr 6.14e-06 4637s
+2026-10-18 18:14:36,545 INFO train: step 800/1000 loss 0.5112 lr 5.11e-06 4754s
+2026-10-18 18:14:39,556 INFO train:   training state saved at step 800
+2026-10-18 18:16:33,875 INFO train: step 820/1000 loss 0.4093 lr 4.17e-06 4871s
+2026-10-18 18:18:29,967 INFO train: step 840/1000 loss 0.6209 lr 3.32e-06 4987s
+2026-10-18 18:20:21,121 INFO train: step 860/1000 loss 0.7098 lr 2.56e-06 5099s
+2026-10-18 18:22:16,344 INFO train: step 880/1000 loss 0.6373 lr 1.90e-06 5214s
+2026-10-18 18:24:04,094 INFO train: step 900/1000 loss 0.5859 lr 1.33e-06 5322s
+2026-10-18 18:25:58,912 INFO train: step 920/1000 loss 0.6166 lr 8.55e-07 5436s
+2026-10-18 18:27:51,957 INFO train: step 940/1000 loss 0.5011 lr 4.86e-07 5549s
+2026-10-18 18:29:54,127 INFO train: step 960/1000 loss 0.5257 lr 2.20e-07 5672s
+2026-10-18 18:31:49,645 INFO train: step 980/1000 loss 0.5044 lr 5.78e-08 5787s
+2026-10-18 18:33:46,439 INFO train: step 1000/1000 loss 0.6110 lr 1.31e-10 5904s
+2026-10-18 18:34:15,111 INFO train:   validation: loss 0.4060 acc 0.8370 (best 0.4062 at step 750)
+2026-10-18 18:34:15,219 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 18:34:15,225 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-4-E4B-it/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json?%2Fgoogle%2Fgemma-4-E4B-it%2Fresolve%2Fmain%2Fconfig.json=&etag=%22d68960fdcce766f2bfe41436325a8a483a74d125%22 "HTTP/1.1 200 OK"
+2026-10-18 18:34:15,285 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/revision/main "HTTP/1.1 200 OK"
+2026-10-18 18:34:16,606 INFO httpx2: HTTP Request: HEAD https://huggingface.co/google/gemma-4-E4B-it/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-10-18 18:34:16,611 INFO httpx2: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-4-E4B-it/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json?%2Fgoogle%2Fgemma-4-E4B-it%2Fresolve%2Fmain%2Fconfig.json=&etag=%22d68960fdcce766f2bfe41436325a8a483a74d125%22 "HTTP/1.1 200 OK"
+2026-10-18 18:34:16,674 INFO httpx2: HTTP Request: GET https://huggingface.co/api/models/google/gemma-4-E4B-it/revision/main "HTTP/1.1 200 OK"
+2026-10-18 18:34:17,931 INFO train:   snapshot saved to /releases/mixv2/pilots/anchored/snapshots/step-1000
+{
+ "lr": 5e-05,
+ "steps": 1000,
+ "best": {
+  "step": 1000,
+  "val": {
+   "loss": 0.406020931340754,
+   "accuracy": 0.837,
+   "n": 2000
+  },
+  "is_base": false
+ },
+ "base_val": {
+  "loss": 2.086752564936876,
+  "accuracy": 0.7095,
+  "n": 2000
+ }
+}

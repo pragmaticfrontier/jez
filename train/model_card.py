@@ -85,6 +85,7 @@ def main() -> None:
     ap.add_argument("--lr-note", default="chosen by a 3-rate sweep on 5% of the data", help="how the learning rate was chosen")
     ap.add_argument("--selection-note", default="", help="how the checkpoint was chosen beyond validation loss")
     ap.add_argument("--note", action="append", default=[], help="an extra Known-limits bullet (repeatable)")
+    ap.add_argument("--calibration-fit", default="fitted on the mix's 2% calibration split", help="where the temperatures were fitted")
     args = ap.parse_args()
     rel = Path(args.release)
     spec = registry.MODELS[registry.resolve(args.model_id) or args.model_id]
@@ -129,6 +130,7 @@ def main() -> None:
         "objective": describe_objective(training, args.teacher),
         "schedule": describe_schedule(training, args.lr_note),
         "selection": describe_selection(training, keep_base, args.selection_note),
+        "calibration_fit": args.calibration_fit,
         "method": training.get("recipe", {}).get("method", "not trained"),
         "method_details": json.dumps({k: v for k, v in training.get("recipe", {}).items() if k not in ("method", "lr")}),  # the recipe's default lr is not the run's
         "mix_manifest": f"{data_dir}/manifest.json" if data_dir else "none",
