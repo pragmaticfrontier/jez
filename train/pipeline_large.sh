@@ -67,7 +67,7 @@ fi
 if [ ! -f "$REL/calibration.json" ]; then
   step "temperatures on the calibration split"
   $GUARD --timeout 7200 -- $PY -m train.fit_calibration --checkpoint "$WEIGHTS" --data "$MIX/calibration.jsonl" \
-      --out "$REL/calibration.json" 2>&1 | tee "$LOGS/calibration.log" | tail -3
+      --model-id jez-large-1.0.0 --out "$REL/calibration.json" 2>&1 | tee "$LOGS/calibration.log" | tail -3
 fi
 
 if [ ! -f runs/jez-large-1.0.0-n1000.json ]; then
