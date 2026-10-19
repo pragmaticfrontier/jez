@@ -10,3 +10,6 @@ eval/data/*.meta.json
 eval/data/labels-*.json
 train/data/
 tests/sdk_js/node_modules/
+
+# Yelp review sample: non-commercial dataset terms, cached locally by bench/data.py, never published
+bench/data/yelp.jsonl
