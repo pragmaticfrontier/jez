@@ -23,7 +23,7 @@ class ModelSpec:
     release_date: str
     native_context: int
     cost_per_mtok_usd: float  # reported in the Jez-Cost-Usd header; informational
-    weights: str | None = None  # Hugging Face id of the released fine-tuned weights; None until a release is published
+    weights: str | None = None  # Hugging Face id of the released fine-tuned weights (served by default); None before a release
 
 
 MODELS: dict[str, ModelSpec] = {
@@ -36,6 +36,7 @@ MODELS: dict[str, ModelSpec] = {
         release_date="2026-10-16",
         native_context=262_144,
         cost_per_mtok_usd=0.004,
+        weights="pragmaticfrontier/jez-small-1.0.0",
     ),
     "jez-large-1.0.0": ModelSpec(
         id="jez-large-1.0.0",
@@ -46,6 +47,7 @@ MODELS: dict[str, ModelSpec] = {
         release_date="2026-10-16",
         native_context=131_072,
         cost_per_mtok_usd=0.02,
+        weights="pragmaticfrontier/jez-large-1.0.0",
     ),
 }
 

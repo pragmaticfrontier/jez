@@ -1,6 +1,8 @@
 """Upload a Jez release directory to a Hugging Face model repository.
 
-    HF_TOKEN=... python -m tools.publish_hf --release releases/jez-large-1.0.0 --repo MisreadableMind/jez-large-1.0.0 [--private] [--dry-run]
+    python -m tools.publish_hf --release releases/jez-large-1.0.0 --repo pragmaticfrontier/jez-large-1.0.0 [--private] [--dry-run]
+
+Authenticates with ``HF_TOKEN`` when set, else with the token ``hf auth login`` stored.
 
 Layout on the Hub: the merged ``weights/`` at the repository root (so ``from_pretrained(repo)`` and the Jez engine's
 checkpoint resolution work unchanged), ``adapter/`` when the release has one, ``calibration.json``, ``training.json``
@@ -16,6 +18,11 @@ from pathlib import Path
 LANGUAGES = ["en", "de", "fr", "es", "it", "pt", "ru", "uk", "ar", "hi", "zh", "ja"]
 
 USAGE = """
+## Code, evaluation and reports
+
+The server, the evaluation harness and the reports this card cites by repository path (`reports/...`,
+`examples/...`) live at {code_repo}.
+
 ## Serving
 
 The weights at the root of this repository are plain `{arch}` weights: the fine-tune is merged, nothing custom is
@@ -74,7 +81,9 @@ def main() -> None:
     ap.add_argument("--licence", default="apache-2.0", help="Hub licence identifier")
     ap.add_argument("--licence-link", default=None)
     ap.add_argument("--tags", default="jez,jev,decision-model,label-logits,classification")
+    ap.add_argument("--code-repo", default="https://github.com/pragmaticfrontier/jez", help="where the code and reports live")
     ap.add_argument("--private", action="store_true")
+    ap.add_argument("--readme-only", action="store_true", help="refresh README.md on an existing repository, upload nothing else")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
     release = Path(args.release)
@@ -87,7 +96,7 @@ def main() -> None:
     model_id = args.model_id
     if not model_id and (release / "calibration.json").is_file():
         model_id = json.loads((release / "calibration.json").read_text()).get("model")
-    usage = USAGE.format(arch=arch, model_id=model_id or release.name, repo=args.repo, base=base)
+    usage = USAGE.format(arch=arch, model_id=model_id or release.name, repo=args.repo, base=base, code_repo=args.code_repo)
     readme = front_matter(base, args.licence, args.licence_link, args.tags.split(",")) + (release / "MODEL_CARD.md").read_text() + usage
     total = sum(f.stat().st_size for f, _ in files)
     print(f"{len(files)} files, {total / 1e9:.2f} GB -> {args.repo} ({'private' if args.private else 'public'})")
@@ -98,15 +107,17 @@ def main() -> None:
         print(readme.split("---")[1])
         print(usage)
         return
-    token = os.environ.get("HF_TOKEN")
+    from huggingface_hub import CommitOperationAdd, HfApi, get_token
+    token = os.environ.get("HF_TOKEN") or get_token()  # HF_TOKEN, else the token `hf auth login` stored
     if not token:
-        raise SystemExit("HF_TOKEN is not set")
-    from huggingface_hub import CommitOperationAdd, HfApi
+        raise SystemExit("no Hub token: set HF_TOKEN or run `hf auth login`")
     api = HfApi(token=token)
+    print(f"uploading as {api.whoami()['name']}")
     api.create_repo(args.repo, repo_type="model", private=args.private, exist_ok=True)
-    ops = [CommitOperationAdd(path_in_repo=dest, path_or_fileobj=str(f)) for f, dest in files]
+    ops = [] if args.readme_only else [CommitOperationAdd(path_in_repo=dest, path_or_fileobj=str(f)) for f, dest in files]
     ops.append(CommitOperationAdd(path_in_repo="README.md", path_or_fileobj=readme.encode()))
-    info = api.create_commit(repo_id=args.repo, operations=ops, commit_message=f"{release.name}: weights, adapter, calibration, card")
+    message = f"{release.name}: README" if args.readme_only else f"{release.name}: weights, adapter, calibration, card"
+    info = api.create_commit(repo_id=args.repo, operations=ops, commit_message=message)
     print(f"uploaded: {info.commit_url if hasattr(info, 'commit_url') else info}")
 
 

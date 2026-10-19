@@ -6,13 +6,13 @@ labels at the answer position; never generates text.
 | | |
 |---|---|
 | Base checkpoint | `Qwen/Qwen3.5-0.8B` (Apache 2.0) |
-| Method | full ({"lr": 2e-05}) |
-| Training data | `none`: ? examples from ? sources; licences and 13-token overlap drops per source in the manifest |
+| Method | full |
+| Training data | `reports/mix-v2-manifest.json`: 278999 examples from 20 sources; licences and 13-token overlap drops per source in the manifest |
 | Teacher | none (gold labels only) (licence checked: n/a) |
-| Objective | cross-entropy on the gold label + 0.5 × KL(teacher ‖ student) over label logits |
-| Schedule | cosine, 3% warm-up, 1 epoch, 64 sequences per step, up to 4,096 tokens; learning rate 1e-05 chosen by a 3-rate sweep on 5% of the data |
-| Checkpoint selection | validation loss on a 5% split; best checkpoint at step 3800 (validation loss 0.39027396082133053) |
-| Calibration | `calibration.json`, temperatures per question type and option-count bucket, fitted on a 2% calibration split |
+| Objective | cross-entropy on the gold label, over label logits at the answer position |
+| Schedule | cosine, 3% warm-up, 1 epoch (4,359 steps of 64 sequences), up to 4,096 tokens; learning rate 1e-05 chosen by a 3-rate sweep (1e-5, 2e-5, 4e-5) on 5% of mix-v1 in round 1 and reused for mix-v2 |
+| Checkpoint selection | best validation loss on a 5% split: step 3800 (loss 0.3903, accuracy 83.7%) |
+| Calibration | `calibration.json`, temperatures per question type and option-count bucket, fitted on the mix's 2% calibration split |
 | Weights tag | `jez-small-1.0.0` |
 
 ## Acceptance gates (full splits)
@@ -58,3 +58,5 @@ Tier 2 sets are not in the repository; see eval/data/tier2/README.md.
 - Text only: image assets and `box` questions return 422.
 - 64k tokens per request and 32k per question; the long-context header is not supported.
 - Calibration temperatures: noul 1.09, choice:2 0.74, choice:3-5 1.16, choice:6-26 1.08, choice:27-255 1.00, score:2 1.00, score:3-5 1.16, score:6-10 1.25
+- Gate 2 is not met on the full splits: BoolQ −2.7, ARC-Easy −2.3 and IMDB −1.1 points below the base Qwen are significant drops (paired bootstrap, 95% intervals); prompt injection −3.4 and SST-2 −1.9 are within the noise of their small splits. Gold-only cross-entropy drifts the 0.8B model where the base already knew the answer, see reports/mixv2/gate2-full-split-analysis.md. The gains are where the mix teaches a format or domain: BANKING77 +47.6, Belebele +5 to +15 per language, SST-5 +7.4, HellaSwag +3.3, ToxicChat F1 0.379 → 0.554.
+- Latency is measured on a DGX Spark (GB10, torch on CUDA), not on the M1 Pro / L4 targets.

@@ -6,7 +6,7 @@ labels at the answer position; never generates text.
 | | |
 |---|---|
 | Base checkpoint | `{base}` ({base_licence}) |
-| Method | {method} ({method_details}) |
+| Method | {method}{method_details} |
 | Training data | `{mix_manifest}`: {n_train} examples from {n_sources} sources; licences and 13-token overlap drops per source in the manifest |
 | Teacher | {teacher} (licence checked: {teacher_licence_checked}) |
 | Objective | {objective} |
@@ -15,7 +15,7 @@ labels at the answer position; never generates text.
 | Calibration | `calibration.json`, temperatures per question type and option-count bucket, {calibration_fit} |
 | Weights tag | `{model_id}` |
 
-## Acceptance gates (full splits)
+## Acceptance gates ({gate_scope})
 
 | gate | result |
 |---|---|

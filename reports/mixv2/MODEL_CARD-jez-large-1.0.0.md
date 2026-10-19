@@ -7,7 +7,7 @@ labels at the answer position; never generates text.
 |---|---|
 | Base checkpoint | `google/gemma-4-E4B-it` (Apache 2.0 on the Hub card; Gemma 4 licence terms at https://ai.google.dev/gemma/docs/gemma_4_license) |
 | Method | lora ({"rank": 64, "alpha": 128, "targets": ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]}) |
-| Training data | `/data/mix-v2/manifest.json`: ? examples from ? sources; licences and 13-token overlap drops per source in the manifest |
+| Training data | `reports/mix-v2-manifest.json`: 278999 examples from 20 sources; licences and 13-token overlap drops per source in the manifest |
 | Teacher | none (gold labels only) (licence checked: n/a) |
 | Objective | cross-entropy on the gold label + 0.5 × KL(base ‖ student) toward the frozen base model's own label distribution (read with the adapter disabled), over label logits at the answer position |
 | Schedule | cosine, 3% warm-up, 1,000 steps of 64 sequences (23% of an epoch), up to 4,096 tokens; learning rate 5e-05 chosen on Tier 1 development samples at n = 300 (recipe pilots, reports/mixv2/pilots) |
@@ -15,7 +15,7 @@ labels at the answer position; never generates text.
 | Calibration | `calibration.json`, temperatures per question type and option-count bucket, fitted on the even-indexed half of the 1,000-item Tier 1 samples; calibrated figures are reported on the odd-indexed half |
 | Weights tag | `jez-large-1.0.0` |
 
-## Acceptance gates (full splits)
+## Acceptance gates (1,000-item samples per task)
 
 | gate | result |
 |---|---|

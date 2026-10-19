@@ -9,5 +9,12 @@
   "accuracy": 0.837,
   "n": 2000
  },
- "lr": 1e-05
+ "lr": 1e-05,
+ "steps": 4359,
+ "epoch_steps": 4359,
+ "batch": 64,
+ "n_train": 278999,
+ "data": "train/data/mix-v2",
+ "kl_weight": 0.0,
+ "base_kl_weight": 0.0
 }

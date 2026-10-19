@@ -143,20 +143,21 @@ where they stand.
 ### Getting a model
 
 ```bash
-# serve straight from the Hub: the weights and calibration.json are fetched on first start
-JEZ_API_KEYS=my-token JEZ_MODELS=jez-large-1.0.0=pragmaticfrontier/jez-large-1.0.0 .venv/bin/jez-serve
+# serve straight from the Hub: the registry (jez/models.py) names the released weights, and the server fetches them
+# together with calibration.json on first start
+JEZ_API_KEYS=my-token JEZ_MODELS=jez-large-1.0.0 .venv/bin/jez-serve
 
 # or fetch once and serve from disk (calibration.json is picked up from the same directory)
 hf download pragmaticfrontier/jez-small-1.0.0 --local-dir models/jez-small-1.0.0
 JEZ_API_KEYS=my-token JEZ_MODELS=jez-small-1.0.0=models/jez-small-1.0.0 .venv/bin/jez-serve
 
 # both at once
-JEZ_MODELS=jez-small-1.0.0=pragmaticfrontier/jez-small-1.0.0,jez-large-1.0.0=pragmaticfrontier/jez-large-1.0.0 ...
+JEZ_MODELS=jez-small-1.0.0,jez-large-1.0.0 ...
 ```
 
-Without a checkpoint after the id the server falls back to the registry's released weights when `jez/models.py`
-names them, else to the base model, which answers the contract zero-shot (and uncalibrated: the released
-`calibration.json` belongs to the fine-tuned weights).
+`id=<path or Hub id>` after a model id puts any checkpoint behind that id; `JEZ_CHECKPOINT_SMALL` /
+`JEZ_CHECKPOINT_LARGE` do the same per family. A base model put there answers the contract zero-shot and
+uncalibrated: the released `calibration.json` belongs to the fine-tuned weights.
 
 ### Evaluating a model yourself
 

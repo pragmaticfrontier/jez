@@ -86,6 +86,7 @@ def main() -> None:
     ap.add_argument("--selection-note", default="", help="how the checkpoint was chosen beyond validation loss")
     ap.add_argument("--note", action="append", default=[], help="an extra Known-limits bullet (repeatable)")
     ap.add_argument("--calibration-fit", default="fitted on the mix's 2% calibration split", help="where the temperatures were fitted")
+    ap.add_argument("--manifest", help="mix manifest to read and cite (default: <training data dir>/manifest.json)")
     args = ap.parse_args()
     rel = Path(args.release)
     spec = registry.MODELS[registry.resolve(args.model_id) or args.model_id]
@@ -98,8 +99,9 @@ def main() -> None:
     stability = json.loads(Path(args.stability).read_text()) if args.stability else None
     manifest = {}
     data_dir = training.get("data")
-    if data_dir and Path(data_dir, "manifest.json").exists():
-        manifest = json.loads(Path(data_dir, "manifest.json").read_text())
+    manifest_path = Path(args.manifest) if args.manifest else (Path(data_dir, "manifest.json") if data_dir else None)
+    if manifest_path and manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text())
 
     rows = []
     deltas = []
@@ -132,8 +134,8 @@ def main() -> None:
         "selection": describe_selection(training, keep_base, args.selection_note),
         "calibration_fit": args.calibration_fit,
         "method": training.get("recipe", {}).get("method", "not trained"),
-        "method_details": json.dumps({k: v for k, v in training.get("recipe", {}).items() if k not in ("method", "lr")}),  # the recipe's default lr is not the run's
-        "mix_manifest": f"{data_dir}/manifest.json" if data_dir else "none",
+        "method_details": (f" ({json.dumps(details)})" if (details := {k: v for k, v in training.get("recipe", {}).items() if k not in ("method", "lr")}) else ""),  # the recipe's default lr is not the run's
+        "mix_manifest": str(manifest_path) if manifest_path else "none",
         "n_train": manifest.get("splits", {}).get("train", {}).get("n", "?"),
         "n_sources": sum(1 for s in manifest.get("sources", []) if s.get("included")) if manifest else "?",
         "teacher": args.teacher, "teacher_licence_checked": args.teacher_licence_checked,
@@ -141,6 +143,7 @@ def main() -> None:
         "kept_base_or_step": "no checkpoint beat the base model; the release keeps the base weights" if keep_base else f"best checkpoint at step {training.get('step', '?')} (validation loss {training.get('val', {}).get('loss', '?')})",
         "gate1": "PASS: tests/conformance (HTTP, Python SDK, JavaScript SDK) all green" ,
         "gate2": gate2, "gate3": gate3, "gate4": gate4, "gate5": gate5,
+        "gate_scope": "full splits" if run and run.get("full") else "1,000-item samples per task",
         "tier1_table": tier1_table, "tier2_tier3": "Tier 2 sets are not in the repository; see eval/data/tier2/README.md.",
         "latency_rows": latency_rows,
         "known_limits": "\n- ".join(["Calibration temperatures: " + ", ".join(f"{b} {T:.2f}" for b, T in calib.temperature.items())] + list(args.note)),
